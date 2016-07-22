@@ -1,0 +1,33 @@
+.mdl-layout__header-row.custom-header {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.mdl-js-textfield.mdl-textfield {
+  position: absolute;
+  bottom: -10px;
+  text-indent: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.mdl-button.mdl-button--icon {
+  width: 50px;
+  height: 50px;
+  margin-right: -5px;
+}
+
+.mdl-button--icon .material-icons.custom-icon-close {
+  font-size: 30px;
+  left: 45%;
+}
