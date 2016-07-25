@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Message from './Message';
 
 export default class App extends Component {
   render() {
@@ -18,11 +19,12 @@ export default class App extends Component {
 
         <main className="mdl-layout__content">
           <div className="page-content">
-            <div className="mdl-textfield mdl-js-textfield">
-              <input className="mdl-textfield__input" type="text" id="msg" />
-              <label className="mdl-textfield__label" htmlFor="msg">Type your message...</label>
-            </div>
+            <Message />
           </div>
+          <div className="mdl-textfield mdl-js-textfield">
+            <input type="text" placeholder="Type your message..." id="sendMsg"/>
+          </div>
+          <div className="message-container-overlay"></div>
         </main>
       </div>
     );
