@@ -3,6 +3,10 @@
   padding-right: 15px;
 }
 
+.mdl-layout__container .mdl-layout {
+  height: 100vh;
+}
+
 .mdl-js-textfield.mdl-textfield {
   position: absolute;
   bottom: 10px;
@@ -14,6 +18,20 @@
   width: 95%;
   margin-left: 2vw;
   border-radius: 3px;
+}
+
+.mdl-layout-title.custom-title {
+  font-size: 16px;
+  position: relative;
+  top: -8px;
+  font-weight: 500;
+}
+
+.custom-status {
+  font-size: 12px;
+  position: absolute;
+  left: 59px;
+  top: 30px;
 }
 
 #sendMsg {
@@ -84,6 +102,11 @@
   float: left;
   background: #fff;
 }
+
+.custom-icon-logo {
+  padding-top: 4px;
+  margin-right: 20px;
+ }
 
 .message-container p.self {
   float: right;

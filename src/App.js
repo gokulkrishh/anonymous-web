@@ -7,7 +7,9 @@ export default class App extends Component {
       <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <header className="mdl-layout__header is-casting-shadow">
           <div className="mdl-layout__header-row custom-header">
+            <i className="material-icons noselect custom-icon-logo">&#xE0B7;</i>
             <span className="mdl-layout-title custom-title noselect">Anonymous</span>
+            <span className="custom-status noselect">disconnected</span>
             <div className="mdl-layout-spacer"></div>
             <div className="mdl-textfield--align-right">
               <label className="mdl-button mdl-js-button mdl-button--icon" htmlFor="fixed-header-drawer-exp">
