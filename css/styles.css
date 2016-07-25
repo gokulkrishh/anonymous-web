@@ -37,13 +37,22 @@
 #sendMsg {
   font-size: 16px;
   width: 95%;
-  height: 40px;
+  height: 45px;
   border: transparent;
 }
 
 #sendMsg:focus {
   outline: 0;
   border: 0;
+}
+
+.custom-icon-send {
+  position: absolute;
+  right: 10px;
+  top: 11px;
+  cursor: pointer;
+  background: #fff;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .message-container-overlay {
@@ -135,4 +144,8 @@
   padding: 5px 10px;
   position: relative;
   box-shadow: 0 2px 0 -1px rgba(0, 0, 0, 0.12), 0 2px 1px 0px rgba(0, 0, 0, 0.12);
+}
+
+.mdl-layout__header {
+  background: #00897B;
 }

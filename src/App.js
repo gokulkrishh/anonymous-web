@@ -25,6 +25,7 @@ export default class App extends Component {
           </div>
           <div className="mdl-textfield mdl-js-textfield">
             <input type="text" placeholder="Type your message..." id="sendMsg"/>
+            <i className="material-icons custom-icon-send">send</i>
           </div>
           <div className="message-container-overlay"></div>
         </main>

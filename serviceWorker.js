@@ -1,5 +1,5 @@
 var CACHE_NAME = 'static-cache';
-var CACHE_VERSION = 1;
+var CACHE_VERSION = 'v1';
 
 var filesToCache = [
   '/',
