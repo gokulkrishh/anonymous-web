@@ -10,7 +10,8 @@ export default class Message extends Component {
   }
 
   componentWillMount() {
-    this.firebaseRef = firebase.database().ref("chats");
+    const chatData = JSON.parse(localStorage.getItem("chat"));
+    this.firebaseRef = firebase.database().ref("chat" + chatData.chatName + "/messages");
     this.bindAsArray(this.firebaseRef, "chats");
   }
 
@@ -21,8 +22,17 @@ export default class Message extends Component {
 
   render() {
     const chatMessages = this.state.chats.map((chat, index) => {
+      const timeStamp = new Date(chat.timestamp).toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3")
       return(
-        <p className={this.state.id === chat.id ? "user" : "self"} key={index}>{chat.message}</p>
+        <div key={index}>
+          <p className={this.state.id === chat.id ? "user" : "self"} key={index}>
+            <span className="msg">{chat.message}</span>
+            <span className="timestamp">
+              {timeStamp}
+              <i className="material-icons">done</i>
+            </span>
+          </p>
+        </div>
       );
     });
     return(

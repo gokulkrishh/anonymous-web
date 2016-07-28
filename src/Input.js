@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class Input extends React.Component {
+export default class Input extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -12,7 +12,8 @@ export default class Input extends React.Component {
   }
 
   componentWillMount() {
-    this.firebaseRef = firebase.database().ref("chats");
+    const chatData = JSON.parse(localStorage.getItem("chat"));
+    this.firebaseRef = firebase.database().ref("chat" + chatData.chatName + "/messages");
   }
 
   handleSubmit(event) {
@@ -50,7 +51,7 @@ export default class Input extends React.Component {
     return(
       <div>
         <div className="mdl-textfield mdl-js-textfield">
-          <input type="text" placeholder="Say hi to stranger.." onKeyPress={this.handleKeyPress}/>
+          <input type="text" placeholder="Say hi to stranger.." onKeyPress={this.handleKeyPress} autoFocus="true"/>
           <button className="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onClick={this.handleSubmit}>
             <i className="material-icons">send</i>
           </button>
