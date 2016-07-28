@@ -1,3 +1,12 @@
+html,
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background: #ebe4db;
+}
+
 .mdl-layout__header-row.custom-header {
   padding-left: 15px;
   padding-right: 15px;
@@ -13,7 +22,6 @@
   text-indent: 10px;
   padding-left: 10px;
   padding-right: 10px;
-  background: #fff;
   padding: 0;
   width: 95%;
   margin-left: 2vw;
@@ -34,25 +42,29 @@
   top: 30px;
 }
 
-#sendMsg {
+input {
   font-size: 16px;
-  width: 95%;
+  width: calc(100vw - 100px);
   height: 45px;
   border: transparent;
+  position: relative;
+  margin-left: -2.5vw;
+  background: #fff;
+  padding-left: 10px;
+  border-radius: 2px;
 }
 
-#sendMsg:focus {
+input:focus {
   outline: 0;
   border: 0;
 }
 
-.custom-icon-send {
-  position: absolute;
-  right: 10px;
-  top: 11px;
-  cursor: pointer;
-  background: #fff;
-  -webkit-tap-highlight-color: transparent;
+.mdl-button.mdl-button--fab {
+  background: #009688;
+}
+
+.material-icons {
+  color: #fff;
 }
 
 .message-container-overlay {
@@ -115,18 +127,12 @@
 .custom-icon-logo {
   padding-top: 4px;
   margin-right: 20px;
+  width: 24px;
+  height: 28px;
  }
 
 .message-container p.self {
   float: right;
-}
-
-.message-container div {
-  clear: both;
-}
-
-.message-container div:last-child {
-  margin-bottom: 170px;
 }
 
 .message-container p.user::after {
@@ -144,8 +150,35 @@
   padding: 5px 10px;
   position: relative;
   box-shadow: 0 2px 0 -1px rgba(0, 0, 0, 0.12), 0 2px 1px 0px rgba(0, 0, 0, 0.12);
+  font-family: 'Roboto', sans-serif;
+  clear: both;
 }
 
-.mdl-layout__header {
-  background: #00897B;
+.message-container p:last-child {
+  margin-bottom: 10px;
+}
+
+.mdl-button--fab.mdl-button--mini-fab {
+  background: #009688;
+  width: 45px !important;
+  max-width: 60px;
+  height: 45px !important;
+  bottom: 1px !important;
+  right: 1px;
+}
+
+.mdl-button--fab.mdl-button--mini-fab:hover {
+  background: #009688;
+}
+
+.mdl-button--fab.mdl-button--mini-fab i {
+  text-indent: 3px;
+}
+
+.page-content {
+  height: calc(100vh - 120px);
+}
+
+.mdl-layout__content {
+
 }

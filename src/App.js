@@ -1,35 +1,53 @@
 import React, { Component } from 'react';
+import reactMixin from 'react-mixin';
 import Message from './Message';
+import Header from './Header';
+import Input from './Input';
+
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyDmTL4vKfTVOVD6Nd5Ye7fEmDtxY9eeDio",
+  authDomain: "anonymous-chat-26137.firebaseapp.com",
+  databaseURL: "https://anonymous-chat-26137.firebaseio.com",
+  storageBucket: "anonymous-chat-26137.appspot.com",
+};
+
+firebase.initializeApp(config);
 
 export default class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      chats: [],
+      status: "connecting..",
+    };
+  }
+
+  componentWillMount() {
+    this.firebaseRef = firebase.database().ref("child_added").on('value', function(snapshot) {
+      this.setState({
+        status: "connected"
+      });
+    }.bind(this));
+  }
+
+  componentWillUnmount() {
+    this.firebaseRef.off();
+  }
+
   render() {
     return (
       <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-        <header className="mdl-layout__header is-casting-shadow">
-          <div className="mdl-layout__header-row custom-header">
-            <i className="material-icons noselect custom-icon-logo">&#xE0B7;</i>
-            <span className="mdl-layout-title custom-title noselect">Anonymous</span>
-            <span className="custom-status noselect">disconnected</span>
-            <div className="mdl-layout-spacer"></div>
-            <div className="mdl-textfield--align-right">
-              <label className="mdl-button mdl-js-button mdl-button--icon" htmlFor="fixed-header-drawer-exp">
-               <i className="material-icons noselect custom-icon-close">&#xE14C;</i>
-             </label>
-            </div>
-          </div>
-        </header>
-
+        <Header status={this.state.status}/>
         <main className="mdl-layout__content">
           <div className="page-content">
             <Message />
           </div>
-          <div className="mdl-textfield mdl-js-textfield">
-            <input type="text" placeholder="Type your message..." id="sendMsg"/>
-            <i className="material-icons custom-icon-send">send</i>
-          </div>
-          <div className="message-container-overlay"></div>
+          <Input />
         </main>
       </div>
     );
   }
 }
+
+reactMixin(App.prototype, ReactFireMixin)
