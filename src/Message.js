@@ -1,18 +1,31 @@
 import React, { Component } from 'react';
 import reactMixin from 'react-mixin';
+import moment from 'moment';
+import firebase from 'firebase';
+import ReactFireMixin from 'reactfire';
 
 export default class Message extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      id: window.navigator.userAgent.replace(/\D+/g, '')
+      chatId: window.navigator.userAgent.replace(/\D+/g, ''),
+      chatName: moment.utc(new Date).valueOf().toString().slice(0, 8),
+      chats: [],
+      otherUserId: null
     };
   }
 
-  componentWillMount() {
-    const chatData = JSON.parse(localStorage.getItem("chat"));
-    this.firebaseRef = firebase.database().ref("chat" + chatData.chatName + "/messages");
-    this.bindAsArray(this.firebaseRef, "chats");
+  componentWillReceiveProps(nextProps) {
+    const {chats} = this.state;
+    if (nextProps.otherUserId && nextProps.chatUrl) {
+      this.firebaseRef = firebase.database().ref("chats/chat_" + nextProps.chatUrl + "/messages");
+      if (!chats.length) {
+        this.bindAsArray(this.firebaseRef, "chats");
+      }
+      this.setState({
+        otherUserId: nextProps.otherUserId
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -21,15 +34,16 @@ export default class Message extends Component {
   }
 
   render() {
-    const chatMessages = this.state.chats.map((chat, index) => {
-      const timeStamp = new Date(chat.timestamp).toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3")
+    const {chats} = this.state;
+    const chatMessages = chats.map((chat, index) => {
+      const timeStamp = moment(chat.timestamp).format('LT');
       return(
         <div key={index}>
-          <p className={this.state.id === chat.id ? "user" : "self"} key={index}>
+          <p className={this.state.chatId === chat.id ? "user" : "self"} key={index}>
             <span className="msg">{chat.message}</span>
             <span className="timestamp">
               {timeStamp}
-              <i className="material-icons">done</i>
+              <i className="material-icons">done_all</i>
             </span>
           </p>
         </div>

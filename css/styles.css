@@ -1,9 +1,6 @@
 html,
 body {
   font-family: 'Roboto', sans-serif;
-}
-
-body {
   background: #ebe4db;
 }
 
@@ -177,13 +174,9 @@ input:focus {
   height: 20px;
 }
 
-.message-container p:first-child {
-  margin-top: 15px;
+.message-container div {
+  clear: both;
 }
-
-/*.message-container p:last-child {
-  margin-bottom: 10px;
-}*/
 
 .mdl-button--fab.mdl-button--mini-fab {
   background: #009688;
@@ -310,4 +303,23 @@ input:focus {
   margin-right: 12px;
   vertical-align: middle;
   width: 16px;
+}
+
+.spinner-container {
+  background: #fff;
+}
+
+.spinner-container,
+.spinner-container .mdl-spinner {
+  position: absolute;
+  top: 57px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 9999;
+}
+
+.spinner-container .mdl-spinner {
+  top: 0;
 }

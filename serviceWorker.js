@@ -6,8 +6,6 @@ var filesToCache = [
   '/css/styles.css',
   '/static/bundle.js',
   '/index.html',
-  '/js/firebase.js',
-  '/js/reactfire.min.js',
   'https://fonts.googleapis.com/css?family=Material+Icons',
   'https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,medium&amp;lang=en'
 ];

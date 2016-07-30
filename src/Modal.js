@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import firebase from 'firebase';
 
 export default class Modal extends Component {
   static defaultProps = {
@@ -17,12 +18,20 @@ export default class Modal extends Component {
 
   componentWillMount() {
     const chatData = JSON.parse(localStorage.getItem("chat"));
-    this.firebaseRef = firebase.database().ref("chat" + chatData.chatName);
+    this.firebaseRef = firebase.database().ref("chats/chat_" + chatData.chatId);
   }
 
   leaveChat() {
-    this.props.updateStatusCallback("disconnected");
+    const {otherUserId, chatUrl} = this.props;
     this.firebaseRef.remove();
+    if (chatUrl) {
+      firebase.database().ref("chats/chat_" + chatUrl).remove();
+    }
+    if (otherUserId) {
+      firebase.database().ref("chats/chat_" + otherUserId).remove();
+    }
+    localStorage.removeItem("chat");
+    this.props.updateStatusCallback("disconnected");
   }
 
   componentWillReceiveProps(nextProps) {

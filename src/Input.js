@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import firebase from 'firebase';
+import moment from 'moment';
 
 export default class Input extends Component {
   constructor(props) {
@@ -6,25 +8,31 @@ export default class Input extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.scrollToEnd = this.scrollToEnd.bind(this);
+    this.firebaseRef = null;
     this.state = {
-      id: window.navigator.userAgent.replace(/\D+/g, '')
+      chatId: window.navigator.userAgent.replace(/\D+/g, ''),
+      otherUserId: null
     };
   }
 
-  componentWillMount() {
-    const chatData = JSON.parse(localStorage.getItem("chat"));
-    this.firebaseRef = firebase.database().ref("chat" + chatData.chatName + "/messages");
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.otherUserId && nextProps.chatUrl) {
+      this.firebaseRef = firebase.database().ref("chats/chat_" + nextProps.chatUrl + "/messages");
+    }
   }
 
   handleSubmit(event) {
     var userInput = document.querySelector("input");
+    userInput.focus();
 
     if (!userInput.value.replace(/^\s+|\s+$/g, "")) return false;
 
+    if (!this.firebaseRef) return false;
+    
     this.firebaseRef.push({
-      id: this.state.id,
+      id: this.state.chatId,
       message: userInput.value,
-      timestamp: Date.now()
+      timestamp: moment.utc(new Date).valueOf()
     });
 
     userInput.value = "";
