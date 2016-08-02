@@ -19,7 +19,7 @@ export default class Message extends Component {
     const {chats} = this.state;
     if (nextProps.otherUserId && nextProps.chatUrl) {
       this.firebaseRef = firebase.database().ref("chats/chat_" + nextProps.chatUrl + "/messages");
-      if (!chats.length) {
+      if (typeof this.firebaseRefs["chats"] === 'undefined') {
         this.bindAsArray(this.firebaseRef, "chats");
       }
       this.setState({

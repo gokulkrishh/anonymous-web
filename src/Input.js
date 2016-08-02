@@ -28,7 +28,7 @@ export default class Input extends Component {
     if (!userInput.value.replace(/^\s+|\s+$/g, "")) return false;
 
     if (!this.firebaseRef) return false;
-    
+
     this.firebaseRef.push({
       id: this.state.chatId,
       message: userInput.value,
@@ -41,8 +41,10 @@ export default class Input extends Component {
 
   scrollToEnd() {
     var target = document.querySelector('.page-content');
-    var scrollHeight = target.scrollHeight;
-    target.scrollTo(0, scrollHeight);
+    var scrollHeight = target.scrollHeight + 300;
+    if (target && target.scrollTo) {
+      target.scrollTo(0, scrollHeight);
+    }
   }
 
   handleKeyPress(event) {
@@ -59,7 +61,7 @@ export default class Input extends Component {
     return(
       <div>
         <div className="mdl-textfield mdl-js-textfield">
-          <input type="text" placeholder="Say hi to stranger.." onKeyPress={this.handleKeyPress} autoFocus="true"/>
+          <input type="text" placeholder="Type your message.." onKeyPress={this.handleKeyPress} autoFocus="true"/>
           <button className="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onClick={this.handleSubmit}>
             <i className="material-icons">send</i>
           </button>

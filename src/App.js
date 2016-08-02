@@ -66,6 +66,7 @@ export default class App extends Component {
       this.firebaseDB.child("chat_" + otherUserId).remove();
     }
     localStorage.removeItem("chat");
+    this.initializeChat();
   }
 
   initializeChat() {
@@ -120,15 +121,11 @@ export default class App extends Component {
         [deletedChatName, deletedUserId, deletedOtherUserId] = oldChildArray;
       }
 
-      console.log("status -->", status);
-
       if (status === "online") {
         if (deletedUserId === otherUserId || deletedUserId === chatId) {
-          console.log("true 1");
           this.closeConnection();
         }
         else if (deletedOtherUserId === otherUserId || deletedOtherUserId === chatId) {
-          console.log("true 2");
           this.closeConnection();
         }
       }
@@ -165,7 +162,7 @@ export default class App extends Component {
     });
 
     this.checkForOpenConnection();
-    // this.checkForDisconnection();
+    this.checkForDisconnection();
   }
 
   updateStatus(status) {

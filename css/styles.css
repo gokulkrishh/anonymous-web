@@ -2,6 +2,8 @@ html,
 body {
   font-family: 'Roboto', sans-serif;
   background: #ebe4db;
+  padding: 0;
+  height: 100vh;
 }
 
 .mdl-layout__header-row.custom-header {
@@ -111,14 +113,14 @@ input:focus {
   height: 0;
   border-width: 10px;
   border-style: solid;
-  border-color: #e1ffc7 transparent transparent;
+  border-color: #fff transparent transparent;
   top: 0;
-  right: -7px;
+  left: -9px;
 }
 
 .message-container p.user {
-  float: left;
-  background: #fff;
+  float: right;
+  background: #e1ffc7;
 }
 
 .custom-icon-logo {
@@ -129,13 +131,14 @@ input:focus {
  }
 
 .message-container p.self {
-  float: right;
+  float: left;
 }
 
 .message-container p.user::after {
-  border-color: #fff transparent transparent;
   top: 0;
-  left: -7px;
+  right: -8px;
+  left: initial;
+  border-color: #e1ffc7 transparent transparent;
 }
 
 .message-container .msg {
@@ -157,8 +160,8 @@ input:focus {
   min-width: 80px;
   max-width: 90vw;
   margin: 10px 20px 0 20px;
+  background: #fff;
   border-radius: 5px;
-  background: #e1ffc7;
   padding: 5px 10px;
   position: relative;
   box-shadow: 0 2px 0 -1px rgba(0, 0, 0, 0.12), 0 2px 1px 0px rgba(0, 0, 0, 0.12);
@@ -226,6 +229,7 @@ input:focus {
 
 .modal-dialog-content p {
   padding-left: 20px;
+  padding-right: 10px;
   font-size: 15px;
   padding-top: 10px;
 }
@@ -256,37 +260,6 @@ input:focus {
   margin-left: 10px;
 }
 
-.spinner {
-  position: absolute;
-  right: 0;
-  top: 6px;
-  right: 10px;
-}
-
-@keyframes spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
-@-webkit-keyframes spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg)
-  }
-
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg)
-  }
-}
-
 .spinner:before {
   border: 2px solid #fff;
   border-top-color: transparent;
@@ -298,11 +271,14 @@ input:focus {
 .spinner {
   border-color: white;
   border-top-color: transparent;
-  display: inline-block;
-  height: 16px;
-  margin-right: 12px;
-  vertical-align: middle;
-  width: 16px;
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
 }
 
 .spinner-container {
@@ -320,6 +296,107 @@ input:focus {
   z-index: 9999;
 }
 
-.spinner-container .mdl-spinner {
-  top: 0;
+.modal-dialog .modal-dialog-content {
+  min-height: 170px;
+}
+
+.spinner {
+  -webkit-animation: rotator 1.4s linear infinite;
+          animation: rotator 1.4s linear infinite;
+}
+
+@-webkit-keyframes rotator {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(270deg);
+            transform: rotate(270deg);
+  }
+}
+
+@keyframes rotator {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(270deg);
+            transform: rotate(270deg);
+  }
+}
+.path {
+  stroke-dasharray: 187;
+  stroke-dashoffset: 0;
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  -webkit-animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+          animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+}
+
+@-webkit-keyframes colors {
+  0% {
+    stroke: #4285F4;
+  }
+  25% {
+    stroke: #DE3E35;
+  }
+  50% {
+    stroke: #F7C223;
+  }
+  75% {
+    stroke: #1B9A59;
+  }
+  100% {
+    stroke: #4285F4;
+  }
+}
+
+@keyframes colors {
+  0% {
+    stroke: #4285F4;
+  }
+  25% {
+    stroke: #DE3E35;
+  }
+  50% {
+    stroke: #F7C223;
+  }
+  75% {
+    stroke: #1B9A59;
+  }
+  100% {
+    stroke: #4285F4;
+  }
+}
+@-webkit-keyframes dash {
+  0% {
+    stroke-dashoffset: 187;
+  }
+  50% {
+    stroke-dashoffset: 46.75;
+    -webkit-transform: rotate(135deg);
+            transform: rotate(135deg);
+  }
+  100% {
+    stroke-dashoffset: 187;
+    -webkit-transform: rotate(450deg);
+            transform: rotate(450deg);
+  }
+}
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 187;
+  }
+  50% {
+    stroke-dashoffset: 46.75;
+    -webkit-transform: rotate(135deg);
+            transform: rotate(135deg);
+  }
+  100% {
+    stroke-dashoffset: 187;
+    -webkit-transform: rotate(450deg);
+            transform: rotate(450deg);
+  }
 }
