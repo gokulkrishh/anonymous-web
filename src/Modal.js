@@ -17,7 +17,7 @@ export default class Modal extends Component {
   }
 
   leaveChat() {
-    const {otherUserId, chatUrl} = this.props;
+    const {chatUrl} = this.props;
     if (chatUrl) {
       firebase.database().ref("chats/chat_" + chatUrl).remove();
     }

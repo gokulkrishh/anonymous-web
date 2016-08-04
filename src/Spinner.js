@@ -5,10 +5,6 @@ export default class Spinner extends Component {
     showSpinner: false
   }
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {showSpinner} = this.props;
     return (
