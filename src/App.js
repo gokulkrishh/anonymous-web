@@ -19,8 +19,8 @@ export default class App extends Component {
     this.handleClose = this.handleClose.bind(this);
     this.addToQueue = this.addToQueue.bind(this);
     this.initializeChat = this.initializeChat.bind(this);
-    this.updateStatus = this.updateStatus.bind(this);
     this.showSpinner = this.showSpinner.bind(this);
+    this.offlineEvent = this.offlineEvent.bind(this);
     this.state = {
       chats: [],
       chatId: window.navigator.userAgent.replace(/\D+/g, ''),
@@ -35,13 +35,16 @@ export default class App extends Component {
 
   componentWillMount() {
     this.initializeChat();
+    this.offlineEvent();
+  }
+
+  offlineEvent() {
     window.addEventListener("offline", () => {
       this.setState({
         status: "disconnected"
       });
     });
     window.addEventListener("online", () => {
-      this.initializeChat();
       this.setState({
         status: "connected"
       });
@@ -54,26 +57,24 @@ export default class App extends Component {
     };
   }
 
-
   closeConnection() {
-    const {chatId, chatUrl, otherUserId} = this.state;
-    this.firebaseDB = firebase.database().ref("chats");
-    this.firebaseDB.child("chat_" + chatId).remove();
+    const {chatId, chatUrl} = this.state;
     if (chatUrl) {
-      this.firebaseDB.child("chat_" + chatUrl).remove();
-    }
-    if (otherUserId) {
-      this.firebaseDB.child("chat_" + otherUserId).remove();
+      this.firebaseDB = firebase.database().ref("chats");
+      firebase.database().ref("chats/chat_" + chatUrl).remove();
+      this.initializeChat();
     }
     localStorage.removeItem("chat");
-    this.initializeChat();
   }
 
   initializeChat() {
     const {chatId, chatName} = this.state;
     this.onReloadCloseChat();
-    this.showSpinner(true);
-    this.updateStatus("connecting..");
+    this.setState({
+      status: "connecting..",
+      showSpinner: true,
+      showModal: false
+    });
     this.firebaseChatRef = firebase.database().ref("chats");
     this.firebaseQueueRef = firebase.database().ref("chats/chat_" + chatId + "/queue");
     this.addToQueue();
@@ -92,43 +93,42 @@ export default class App extends Component {
               this.setState({
                 otherUserId: queue.id,
                 chatUrl: chatName,
-                status: "online"
+                status: "online",
+                showSpinner: false
               });
+              this.checkForDisconnection();
             }
             else {
               this.getChatHash(queue.id, chatId);
               this.setState({
                 otherUserId: queue.id,
                 chatUrl: chatName,
-                status: "online"
+                status: "online",
+                showSpinner: false
               });
+              this.checkForDisconnection();
             }
-            this.showSpinner(false);
           }
         }
       }
     });
   }
 
+  isUserIdPresent(oldChildArray) {
+    const {chatId, otherUserId} = this.state;
+    oldChildArray.shift();
+    for (var i = 0; i < oldChildArray.length; i++) {
+      if (oldChildArray[i] === chatId || oldChildArray[i] === otherUserId) {
+        this.initializeChat();
+        return false;
+      }
+    }
+  }
+
   checkForDisconnection() {
-    const {chatId, otherUserId, status} = this.state;
-    var deletedChatName, deletedUserId, deletedOtherUserId;
-
-    this.firebaseChatRef = firebase.database().ref("chats");
-    this.firebaseChatRef.on('child_removed', (oldChildSnapshot) => {
-      let oldChildArray = oldChildSnapshot.key.split("_");
-      if (oldChildArray.length > 1) {
-        [deletedChatName, deletedUserId, deletedOtherUserId] = oldChildArray;
-      }
-
-      if (status === "online") {
-        if (deletedUserId === otherUserId || deletedUserId === chatId) {
-          this.closeConnection();
-        }
-        else if (deletedOtherUserId === otherUserId || deletedOtherUserId === chatId) {
-          this.closeConnection();
-        }
-      }
+    const {chatId, chatUrl, otherUserId} = this.state;
+    firebase.database().ref("chats").on('child_removed', (oldChildSnapshot) => {
+      this.isUserIdPresent(oldChildSnapshot.key.split("_"));
     });
   }
 
@@ -156,28 +156,8 @@ export default class App extends Component {
 
     this.firebaseQueueRef.on('child_added', (snapshot) => {
       this.storeChat();
-      this.setState({
-        status: "connecting.."
-      });
     });
-
     this.checkForOpenConnection();
-    this.checkForDisconnection();
-  }
-
-  updateStatus(status) {
-    this.setState({
-      showModal: false,
-      status: status
-    });
-
-    if (status === "disconnected") {
-      setTimeout(() => {
-        this.showSpinner(true);
-        this.initializeChat();
-      }, 1000);
-    }
-
   }
 
   storeChat() {
@@ -213,7 +193,6 @@ export default class App extends Component {
           chatUrl={chatUrl}
           otherUserId={otherUserId}
           showModal={showModal}
-          updateStatusCallback={this.updateStatus}
         />
 
         <Spinner showSpinner={showSpinner}/>

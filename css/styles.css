@@ -274,7 +274,7 @@ input:focus {
   height: 30px;
   width: 30px;
   position: absolute;
-  top: 0;
+  top: -80px;
   bottom: 0;
   right: 0;
   left: 0;
@@ -399,4 +399,19 @@ input:focus {
     -webkit-transform: rotate(450deg);
             transform: rotate(450deg);
   }
+}
+
+.spinner-container p {
+  height: 0px;
+  width: 80%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  text-align: center;
+  font-weight: 400;
+  font-size: 20px;
+  font-family: 'Roboto', sans-serif;
 }
