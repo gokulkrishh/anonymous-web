@@ -1,6 +1,6 @@
 {
   "short_name": "Anonymous",
-  "name": "Anonymous",
+  "name": "Anonymous Chat",
   "description": "An anonymous chat application",
   "display": "standalone",
   "orientation": "portrait",
