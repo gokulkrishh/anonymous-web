@@ -62,12 +62,11 @@ export default class Modal extends Component {
         show && (<div className="modal-dialog">
         <div className="modal-dialog-overlay" onClick={this.hideModal}></div>
         <div className="modal-dialog-content">
-          <h4>Leave chat</h4>
+          <h4 className="mdl-dialog__title">Leave chat</h4>
           <p>Are you sure, you want to leave this chat ?</p>
-
           <div className="modal-dialog-actions">
-            <button type="button" className="mdl-button" onClick={this.hideModal}>Cancel</button>
             <button type="button" className="mdl-button close-chat" onClick={this.leaveChat}>Leave</button>
+            <button type="button" className="mdl-button" onClick={this.hideModal}>Cancel</button>
           </div>
         </div>
       </div>)

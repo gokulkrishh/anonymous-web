@@ -1,10 +1,9 @@
 {
   "short_name": "Anonymous",
   "name": "Anonymous Chat",
-  "description": "An anonymous chat application",
   "display": "standalone",
   "orientation": "portrait",
-  "start_url": "/",
+  "start_url": "/anonymous-web",
   "theme_color": "#00897B",
   "background_color": "#fff"
 }
