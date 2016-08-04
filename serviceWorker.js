@@ -3,8 +3,7 @@ var CACHE_VERSION = 'v1';
 
 var filesToCache = [
   '/',
-  '/css/styles.css',
-  '/static/bundle.js',
+  '/static/js/bundle.js',
   '/index.html',
   'https://fonts.googleapis.com/css?family=Material+Icons',
   'https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,medium&amp;lang=en'

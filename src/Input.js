@@ -9,8 +9,10 @@ export default class Input extends Component {
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.scrollToEnd = this.scrollToEnd.bind(this);
     this.firebaseRef = null;
+    /*eslint new-parens: 0*/
+    this.chatId = window.navigator.userAgent.replace(/\D+/g, '');
     this.state = {
-      chatId: window.navigator.userAgent.replace(/\D+/g, ''),
+      chatId: this.chatId,
       otherUserId: null
     };
   }

@@ -8,7 +8,6 @@ import Spinner from './Spinner';
 import moment from 'moment';
 var firebase = require('firebase');
 import ReactFireMixin from 'reactfire';
-import _ from 'lodash';
 
 const config = require("./config.json");
 firebase.initializeApp(config);
@@ -21,10 +20,13 @@ export default class App extends Component {
     this.initializeChat = this.initializeChat.bind(this);
     this.showSpinner = this.showSpinner.bind(this);
     this.offlineEvent = this.offlineEvent.bind(this);
+     /*eslint new-parens: 0*/
+    this.chatName = moment.utc(new Date).valueOf().toString().slice(0, 8);
+    this.chatId = window.navigator.userAgent.replace(/\D+/g, '');
     this.state = {
       chats: [],
-      chatId: window.navigator.userAgent.replace(/\D+/g, ''),
-      chatName: moment.utc(new Date).valueOf().toString().slice(0, 8),
+      chatId: this.chatId,
+      chatName: this.chatName,
       chatUrl: "",
       otherUserId: null,
       status: "connecting..",
@@ -58,7 +60,7 @@ export default class App extends Component {
   }
 
   closeConnection() {
-    const {chatId, chatUrl} = this.state;
+    const {chatUrl} = this.state;
     if (chatUrl) {
       this.firebaseDB = firebase.database().ref("chats");
       firebase.database().ref("chats/chat_" + chatUrl).remove();
@@ -68,7 +70,7 @@ export default class App extends Component {
   }
 
   initializeChat() {
-    const {chatId, chatName} = this.state;
+    const {chatId} = this.state;
     this.onReloadCloseChat();
     this.setState({
       status: "connecting..",
@@ -81,32 +83,36 @@ export default class App extends Component {
   }
 
   checkForOpenConnection() {
-    const {chatId, chatName} = this.state;
+    const {chatId} = this.state;
     this.firebaseChatRef.on("value", (snapshot) => {
       var chats = snapshot.val();
       for (let snap in chats) {
-        for (let key in chats[snap]["queue"]) {
-          var queue = chats[snap]["queue"][key];
-          if (queue.id !== chatId) {
-            var chatName = this.getChatHash(queue.id, chatId);
-            if (snapshot.child(chatName).exists()) {
-              this.setState({
-                otherUserId: queue.id,
-                chatUrl: chatName,
-                status: "online",
-                showSpinner: false
-              });
-              this.checkForDisconnection();
-            }
-            else {
-              this.getChatHash(queue.id, chatId);
-              this.setState({
-                otherUserId: queue.id,
-                chatUrl: chatName,
-                status: "online",
-                showSpinner: false
-              });
-              this.checkForDisconnection();
+        if (chats.hasOwnProperty(snap)) {
+          for (let key in chats[snap]["queue"]) {
+            if (chats[snap]["queue"].hasOwnProperty(key)) {
+              var queue = chats[snap]["queue"][key];
+              if (queue.id !== chatId) {
+                var chatName = this.getChatHash(queue.id, chatId);
+                if (snapshot.child(chatName).exists()) {
+                  this.setState({
+                    otherUserId: queue.id,
+                    chatUrl: chatName,
+                    status: "online",
+                    showSpinner: false
+                  });
+                  this.checkForDisconnection();
+                }
+                else {
+                  this.getChatHash(queue.id, chatId);
+                  this.setState({
+                    otherUserId: queue.id,
+                    chatUrl: chatName,
+                    status: "online",
+                    showSpinner: false
+                  });
+                  this.checkForDisconnection();
+                }
+              }
             }
           }
         }
@@ -126,7 +132,6 @@ export default class App extends Component {
   }
 
   checkForDisconnection() {
-    const {chatId, chatUrl, otherUserId} = this.state;
     firebase.database().ref("chats").on('child_removed', (oldChildSnapshot) => {
       this.isUserIdPresent(oldChildSnapshot.key.split("_"));
     });
@@ -148,7 +153,7 @@ export default class App extends Component {
   }
 
   addToQueue() {
-    const {chats, chatId, chatName} = this.state;
+    const {chatId} = this.state;
     this.firebaseQueueRef.push({
       id: chatId,
       isQueued: true

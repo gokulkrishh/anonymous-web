@@ -6,17 +6,19 @@ import ReactFireMixin from 'reactfire';
 
 export default class Message extends Component {
   constructor(props) {
-    super(props)
+    super(props);
+    /*eslint new-parens: 0*/
+    this.chatName = moment.utc(new Date).valueOf().toString().slice(0, 8);
+    this.chatId = window.navigator.userAgent.replace(/\D+/g, '');
     this.state = {
-      chatId: window.navigator.userAgent.replace(/\D+/g, ''),
-      chatName: moment.utc(new Date).valueOf().toString().slice(0, 8),
+      chatId: this.chatId,
+      chatName: this.chatName,
       chats: [],
       otherUserId: null
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    const {chats} = this.state;
     if (nextProps.otherUserId && nextProps.chatUrl) {
       this.firebaseRef = firebase.database().ref("chats/chat_" + nextProps.chatUrl + "/messages");
       if (typeof this.firebaseRefs["chats"] === 'undefined') {
