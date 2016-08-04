@@ -20,6 +20,7 @@ export default class App extends Component {
     this.initializeChat = this.initializeChat.bind(this);
     this.showSpinner = this.showSpinner.bind(this);
     this.offlineEvent = this.offlineEvent.bind(this);
+    this.firebaseChatRef = null;
      /*eslint new-parens: 0*/
     this.chatName = moment.utc(new Date).valueOf().toString().slice(0, 8);
     this.chatId = window.navigator.userAgent.replace(/\D+/g, '');
@@ -29,7 +30,6 @@ export default class App extends Component {
       chatName: this.chatName,
       chatUrl: "",
       otherUserId: null,
-      status: "connecting..",
       showModal: false,
       showSpinner: false
     };
@@ -37,19 +37,28 @@ export default class App extends Component {
 
   componentWillMount() {
     this.initializeChat();
+    this.onReloadCloseChat();
     this.offlineEvent();
   }
 
   offlineEvent() {
     window.addEventListener("offline", () => {
       this.setState({
-        status: "disconnected"
+        status: "no internet"
       });
     });
+
     window.addEventListener("online", () => {
-      this.setState({
-        status: "connected"
-      });
+      if (this.state.chatUrl) {
+        this.setState({
+          status: "online"
+        });
+      }
+      else {
+        this.setState({
+          status: "connected"
+        });
+      }
     });
   }
 
@@ -59,81 +68,72 @@ export default class App extends Component {
     };
   }
 
-  closeConnection() {
-    const {chatUrl} = this.state;
-    if (chatUrl) {
-      this.firebaseDB = firebase.database().ref("chats");
-      firebase.database().ref("chats/chat_" + chatUrl).remove();
-      this.initializeChat();
-    }
-    localStorage.removeItem("chat");
-  }
-
   initializeChat() {
     const {chatId} = this.state;
-    this.onReloadCloseChat();
     this.setState({
       status: "connecting..",
-      showSpinner: true,
-      showModal: false
+      showModal: false,
+      showSpinner: true
     });
     this.firebaseChatRef = firebase.database().ref("chats");
     this.firebaseQueueRef = firebase.database().ref("chats/chat_" + chatId + "/queue");
     this.addToQueue();
   }
 
-  checkForOpenConnection() {
+  closeConnection() {
+    const {chatUrl, chatId} = this.state;
+    firebase.database().ref("chats/chat_" + chatId).remove();
+    localStorage.removeItem("chat");
+    if (chatUrl) {
+      firebase.database().ref("chats/chat_" + chatUrl).remove();
+    }
+    this.initializeChat();
+  }
+
+  getQueue(queue, queueKey) {
+    return (queue[queueKey[0]] && queue[queueKey[0]].isQueued);
+  }
+
+  removeQueue() {
     const {chatId} = this.state;
-    this.firebaseChatRef.on("value", (snapshot) => {
-      var chats = snapshot.val();
-      for (let snap in chats) {
-        if (chats.hasOwnProperty(snap)) {
-          for (let key in chats[snap]["queue"]) {
-            if (chats[snap]["queue"].hasOwnProperty(key)) {
-              var queue = chats[snap]["queue"][key];
-              if (queue.id !== chatId) {
-                var chatName = this.getChatHash(queue.id, chatId);
-                if (snapshot.child(chatName).exists()) {
-                  this.setState({
-                    otherUserId: queue.id,
-                    chatUrl: chatName,
-                    status: "online",
-                    showSpinner: false
-                  });
-                  this.checkForDisconnection();
-                }
-                else {
-                  this.getChatHash(queue.id, chatId);
-                  this.setState({
-                    otherUserId: queue.id,
-                    chatUrl: chatName,
-                    status: "online",
-                    showSpinner: false
-                  });
-                  this.checkForDisconnection();
-                }
-              }
-            }
-          }
-        }
-      }
+    this.firebaseQueueRef.update({
+      id: chatId,
+      isQueued: false
     });
   }
 
-  isUserIdPresent(oldChildArray) {
-    const {chatId, otherUserId} = this.state;
-    oldChildArray.shift();
-    for (var i = 0; i < oldChildArray.length; i++) {
-      if (oldChildArray[i] === chatId || oldChildArray[i] === otherUserId) {
-        this.initializeChat();
-        return false;
-      }
-    }
+  checkForOpenConnection() {
+    const {chatId} = this.state;
+    const myChatId = "chat_" + chatId;
+    this.firebaseChatRef.on("value", (snapshot) => {
+      snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.key !== myChatId && !this.state.chatUrl) {
+          var queue = childSnapshot.val().queue;
+          if (queue && queue.isQueued) {
+            var otherUserId = queue.id;
+            var chatUrl = this.getChatHash(otherUserId, chatId);
+            if (!snapshot.child(chatUrl).exists()) {
+              this.removeQueue();
+              this.setState({
+                otherUserId: otherUserId,
+                chatUrl: chatUrl,
+                status: "online",
+                showSpinner: false
+              });
+              this.checkForDisconnection(chatUrl);
+            }
+          }
+        }
+      });
+    });
   }
 
   checkForDisconnection() {
+    const {chatUrl} = this.state;
     firebase.database().ref("chats").on('child_removed', (oldChildSnapshot) => {
-      this.isUserIdPresent(oldChildSnapshot.key.split("_"));
+      if ("chat_" + chatUrl === oldChildSnapshot.key) {
+        this.closeConnection();
+      }
     });
   }
 
@@ -154,7 +154,7 @@ export default class App extends Component {
 
   addToQueue() {
     const {chatId} = this.state;
-    this.firebaseQueueRef.push({
+    this.firebaseQueueRef.update({
       id: chatId,
       isQueued: true
     });
@@ -185,7 +185,7 @@ export default class App extends Component {
   }
 
   render() {
-    const {chatUrl, otherUserId, status, showModal, showSpinner} = this.state;
+    const {chatUrl, otherUserId, status, showModal, showSpinner, spinnerText} = this.state;
 
     return (
       <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -200,7 +200,7 @@ export default class App extends Component {
           showModal={showModal}
         />
 
-        <Spinner showSpinner={showSpinner}/>
+        <Spinner showSpinner={showSpinner} spinnerText={spinnerText}/>
 
         <main className="mdl-layout__content">
           <div className="page-content">
@@ -210,6 +210,7 @@ export default class App extends Component {
             />
           </div>
           <Input
+            status={status}
             chatUrl={chatUrl}
             otherUserId={otherUserId}
           />

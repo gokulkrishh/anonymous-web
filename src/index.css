@@ -180,6 +180,10 @@ input:focus {
   justify-content: flex-end;
 }
 
+.message-container .material-icons.schedule {
+  color: #9E9E9E;
+}
+
 .message-container div {
   clear: both;
 }

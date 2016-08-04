@@ -11,15 +11,20 @@ export default class Modal extends Component {
     this.hideModal = this.hideModal.bind(this);
     this.showModal = this.showModal.bind(this);
     this.leaveChat = this.leaveChat.bind(this);
+    this.firebaseRef = null;
     this.state = {
       show: false
     }
   }
 
   leaveChat() {
-    const {chatUrl} = this.props;
+    const {chatUrl, otherUserId} = this.props;
+    this.firebaseRef = firebase.database();
     if (chatUrl) {
-      firebase.database().ref("chats/chat_" + chatUrl).remove();
+      this.firebaseRef.ref("chats/chat_" + chatUrl).remove();
+    }
+    if (otherUserId) {
+      this.firebaseRef.ref("chats/chat_" + otherUserId).remove();
     }
     localStorage.removeItem("chat");
   }
@@ -43,6 +48,10 @@ export default class Modal extends Component {
     this.setState({
       show: true
     });
+  }
+
+  componentWillUnmount() {
+    this.firebaseRef.off();
   }
 
   render() {

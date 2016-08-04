@@ -38,14 +38,15 @@ export default class Message extends Component {
   render() {
     const {chats} = this.state;
     const chatMessages = chats.map((chat, index) => {
-      const timeStamp = moment(chat.timestamp).format('LT');
+      let timeStamp = moment(chat.timestamp).format('LT');
+      let statusIcon = (chat.status === "online") ? "done_all" : "schedule";
       return(
         <div key={index}>
           <p className={this.state.chatId === chat.id ? "user" : "self"} key={index}>
             <span className="msg">{chat.message}</span>
             <span className="timestamp">
               {timeStamp}
-              <i className="material-icons">done_all</i>
+              <i className={"material-icons " + statusIcon}>{statusIcon}</i>
             </span>
           </p>
         </div>

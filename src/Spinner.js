@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 
 export default class Spinner extends Component {
   static defaultProps = {
-    showSpinner: false
+    showSpinner: false,
+    spinnerText: "Looking for anonymous.."
   }
 
   render() {
-    const {showSpinner} = this.props;
+    const {showSpinner, spinnerText} = this.props;
     return (
       <div>
         {
@@ -15,7 +16,7 @@ export default class Spinner extends Component {
               <svg className="spinner" width="65px" height="65px" viewBox="0 0 66 66">
                 <circle className="path" fill="none" strokeWidth="6" strokeLinecap="round" cx="33" cy="33" r="30"></circle>
               </svg>
-              <p>Looking for anonymous..</p>
+              <p>{spinnerText}</p>
             </div>
           )
         }

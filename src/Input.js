@@ -24,17 +24,20 @@ export default class Input extends Component {
   }
 
   handleSubmit(event) {
+    const {status} = this.props;
     var userInput = document.querySelector("input");
     userInput.focus();
 
-    if (!userInput.value.replace(/^\s+|\s+$/g, "")) return false;
+    if (!userInput.value.replace(/^\s+|\s+$/g, "") || !this.firebaseRef) {
+      return false;
+    }
 
-    if (!this.firebaseRef) return false;
-
+    var msgStatus = (status === "online") ? "online" : "schedule";
     this.firebaseRef.push({
       id: this.state.chatId,
       message: userInput.value,
-      timestamp: moment.utc(new Date).valueOf()
+      timestamp: moment.utc(new Date).valueOf(),
+      status: msgStatus
     });
 
     userInput.value = "";
