@@ -47,6 +47,8 @@ body {
   top: 30px;
   left: 59px;
   font-size: 12px;
+  margin-left: 10px;
+  font-style: italic;
 }
 
 input {
@@ -145,10 +147,10 @@ input:focus {
 }
 
 .custom-icon-logo {
-  width: 24px;
-  height: 28px;
-  margin-right: 20px;
-  padding-top: 4px;
+  width: 44px;
+  height: 44px;
+  margin-right: 10px;
+  margin-top: -4px;
  }
 
 .message-container p.self {

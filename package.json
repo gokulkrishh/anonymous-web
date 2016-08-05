@@ -1,6 +1,6 @@
 {
-  "name": "my-app",
-  "version": "0.0.1",
+  "name": "anonymous-chat",
+  "version": "1.0.0",
   "private": true,
   "devDependencies": {
     "firebase": "^3.2.1",
@@ -19,6 +19,7 @@
     "build": "react-scripts build",
     "eject": "react-scripts eject"
   },
+  "homepage": "https://gokulkrishh.github.io/anonymous-web",
   "eslintConfig": {
     "extends": "./node_modules/react-scripts/config/eslint.js"
   }

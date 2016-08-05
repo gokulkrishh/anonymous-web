@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import logo from './images/logo.png';
 
 export default class Header extends Component {
   static defaultProps = {
@@ -37,7 +38,7 @@ export default class Header extends Component {
     return (
       <header className="mdl-layout__header is-casting-shadow">
         <div className="mdl-layout__header-row custom-header">
-          <i className="material-icons noselect custom-icon-logo">&#xE0B7;</i>
+          <img src={logo} className="custom-icon-logo" alt="logo"/>
           <span className="mdl-layout-title custom-title noselect">Anonymous</span>
           <span className="custom-status noselect">{status}</span>
           <div className="mdl-layout-spacer"></div>
