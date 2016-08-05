@@ -243,7 +243,7 @@ input:focus {
 
 .modal-dialog-content {
   z-index: 100;
-  width: 80%;
+  width: 280px;
   height: fit-content;
   margin: auto;
   background: #fff;

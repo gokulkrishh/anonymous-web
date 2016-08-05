@@ -3,7 +3,10 @@ var CACHE_VERSION = 'v1';
 
 var filesToCache = [
   '/',
-  '/static/js/bundle.js',
+  'images/android-chrome-192x192.png',
+  'images/android-chrome-512x512.png',
+  '/static/js/',
+  '/static/css/',
   '/index.html',
   'https://fonts.googleapis.com/css?family=Material+Icons',
   'https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,medium&amp;lang=en'
