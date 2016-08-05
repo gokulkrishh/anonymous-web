@@ -31,7 +31,7 @@ export default class App extends Component {
       chatUrl: "",
       otherUserId: null,
       showModal: false,
-      showSpinner: false
+      showSpinner: true
     };
   }
 

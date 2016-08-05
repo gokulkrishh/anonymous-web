@@ -1,8 +1,12 @@
 html,
 body {
-  height: 100%;
-  padding: 0;
   background: #ebe4db;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -11,14 +15,13 @@ body {
   padding-left: 15px;
 }
 
-.mdl-layout__container .mdl-layout {
+.mdl-layout {
   height: 100vh;
 }
 
 .mdl-js-textfield.mdl-textfield {
   position: absolute;
   bottom: 10px;
-
   width: 95%;
   margin-left: 2vw;
   padding: 0;
@@ -26,6 +29,7 @@ body {
   padding-left: 10px;
   text-indent: 10px;
   border-radius: 3px;
+  background: #ebe4db;
 }
 
 .mdl-layout-title.custom-title {
@@ -51,7 +55,7 @@ input {
   border: transparent;
   border-radius: 6px;
   background: #fff;
-  font-size: 16px;
+  font-size: 17px;
 }
 
 input:focus {
@@ -67,14 +71,25 @@ input:focus {
   color: #fff;
 }
 
+.message-container-overlay.top {
+  height: 5px;
+  bottom: 57px;
+  right: 10px;
+}
+
 .message-container-overlay {
   position: absolute;
-  bottom: 0;
+  bottom: -1px;
   overflow: hidden;
   width: 100%;
-  height: 10px;
-
+  height: 11px;
   background: #ebe4db;
+}
+
+.message-container {
+  padding-bottom: 70px;
+  flex: 1;
+  overflow-y: auto;
 }
 
 .noselect {
@@ -103,10 +118,10 @@ input:focus {
 }
 
 .page-content {
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
   height: calc(100vh - 60px);
   background: #ebe4db;
+  display: flex;
 }
 
 .message-container p::after {

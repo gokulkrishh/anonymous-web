@@ -17,6 +17,21 @@ export default class Header extends Component {
     }
   }
 
+  htmlCloseBtn() {
+    const {status} = this.props;
+    const isVisible = (status !== "connecting..")
+    return (
+      <div>
+      {
+        isVisible && (
+        <label className="mdl-button mdl-js-button mdl-button--icon" htmlFor="fixed-header-drawer-exp">
+        <i className="material-icons noselect custom-icon-close" onClick={this.handleClose}>&#xE14C;</i>
+      </label>)
+      }
+      </div>
+    )
+  }
+
   render() {
     const {status} = this.props;
     return (
@@ -27,9 +42,7 @@ export default class Header extends Component {
           <span className="custom-status noselect">{status}</span>
           <div className="mdl-layout-spacer"></div>
           <div className="mdl-textfield--align-right">
-            <label className="mdl-button mdl-js-button mdl-button--icon" htmlFor="fixed-header-drawer-exp">
-             <i className="material-icons noselect custom-icon-close" onClick={this.handleClose}>&#xE14C;</i>
-           </label>
+            {this.htmlCloseBtn()}
           </div>
         </div>
       </header>
