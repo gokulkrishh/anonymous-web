@@ -22,14 +22,17 @@ body {
 .mdl-js-textfield.mdl-textfield {
   position: absolute;
   bottom: 10px;
-  width: 95%;
-  margin-left: 2vw;
+  width: 100%;
+  margin-left: 2.5vw;
   padding: 0;
   padding-right: 10px;
   padding-left: 10px;
   text-indent: 10px;
   border-radius: 3px;
   background: #ebe4db;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .mdl-layout-title.custom-title {
@@ -72,7 +75,7 @@ input:focus {
 }
 
 .message-container-overlay.top {
-  height: 5px;
+  height: 8px;
   bottom: 57px;
   right: 10px;
 }
@@ -204,14 +207,12 @@ input:focus {
 }
 
 .mdl-button--fab.mdl-button--mini-fab {
-  right: 1px;
-  bottom: 1px !important;
-
-  width: 45px !important;
+  width: 46px;
+  height: 46px;
   max-width: 60px;
-  height: 45px !important;
-
   background: #009688;
+  position: initial;
+  margin-bottom: 5px;
 }
 
 .mdl-button--fab.mdl-button--mini-fab:hover {
@@ -219,7 +220,9 @@ input:focus {
 }
 
 .mdl-button--fab.mdl-button--mini-fab i {
-  text-indent: 3px;
+  text-indent: -17px;
+  position: relative;
+  top: 10px;
 }
 
 .modal-dialog { z-index: 100; }
