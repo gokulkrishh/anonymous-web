@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import firebase from 'firebase';
+import React, { Component } from "react";
+import firebase from "firebase";
 
 export default class Modal extends Component {
   static defaultProps = {
@@ -8,13 +8,9 @@ export default class Modal extends Component {
 
   constructor(props) {
     super(props);
-    this.hideModal = this.hideModal.bind(this);
-    this.showModal = this.showModal.bind(this);
+    this.close = this.close.bind(this);
     this.leaveChat = this.leaveChat.bind(this);
     this.firebaseRef = null;
-    this.state = {
-      show: false
-    }
   }
 
   leaveChat() {
@@ -29,44 +25,27 @@ export default class Modal extends Component {
     localStorage.removeItem("chat");
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.showModal) {
-      this.showModal();
-    }
-    else {
-      this.hideModal();
-    }
-  }
-
-  hideModal() {
-    this.setState({
-      show: false
-    });
-  }
-
-  showModal() {
-    this.setState({
-      show: true
-    });
-  }
-
   componentWillUnmount() {
     this.firebaseRef.off();
   }
 
+  close() {
+    this.props.hideModal();
+  }
+
   render() {
-    const {show} = this.state;
+    const {showModal} = this.props;
     return(
-      <div>
+      <div className="modal-container">
       {
-        show && (<div className="modal-dialog">
-        <div className="modal-dialog-overlay" onClick={this.hideModal}></div>
+        showModal && (<div className="modal-dialog">
+        <div className="modal-dialog-overlay" onClick={this.close}></div>
         <div className="modal-dialog-content">
           <h4 className="mdl-dialog__title">Leave chat</h4>
           <p>Are you sure, you want to leave this chat ?</p>
           <div className="modal-dialog-actions">
             <button type="button" className="mdl-button close-chat" onClick={this.leaveChat}>Leave</button>
-            <button type="button" className="mdl-button" onClick={this.hideModal}>Cancel</button>
+            <button type="button" className="mdl-button" onClick={this.close}>Cancel</button>
           </div>
         </div>
       </div>)

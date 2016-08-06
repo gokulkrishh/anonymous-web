@@ -67,7 +67,7 @@ export default class Input extends Component {
       <div>
         <div className="message-container-overlay top"></div>
         <div className="mdl-textfield mdl-js-textfield">
-          <input type="text" placeholder="Type your message.." onKeyPress={this.handleKeyPress} autoFocus="true"/>
+          <input type="text" placeholder="Type your message.." onKeyPress={this.handleKeyPress}/>
           <button className="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onClick={this.handleSubmit}>
             <i className="material-icons">send</i>
           </button>

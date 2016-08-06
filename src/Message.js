@@ -39,7 +39,7 @@ export default class Message extends Component {
     const {chats} = this.state;
     const chatMessages = chats.map((chat, index) => {
       let timeStamp = moment(chat.timestamp).format('LT');
-      let statusIcon = (chat.status === "online") ? "done_all" : "schedule";
+      let statusIcon = "done_all"; //(chat.status === "online") ? "done_all" : "schedule";
       return(
         <div key={index}>
           <p className={this.state.chatId === chat.id ? "user" : "self"} key={index}>

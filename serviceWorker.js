@@ -1,23 +1,23 @@
-var CACHE_NAME = 'static-cache';
-var CACHE_VERSION = 'v1';
+var CACHE_NAME = "static-cache";
+var CACHE_VERSION = "v1";
 
 var filesToCache = [
-  '/',
-  'images/android-chrome-192x192.png',
-  'images/android-chrome-512x512.png',
-  '/static/js/',
-  '/static/css/',
-  '/index.html',
-  'https://fonts.googleapis.com/css?family=Material+Icons',
-  'https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,medium&amp;lang=en'
+  "./",
+  "./index.html",
+  "./src/images/android-chrome-192x192.png",
+  "./src/images/android-chrome-512x512.png",
+  "./static/css/",
+  "./static/js/",
+  "https://fonts.googleapis.com/css?family=Material+Icons",
+  "https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,medium&amp;lang=en"
 ];
 
 self.oninstall = function(event) {
   event.waitUntil(
-    caches.open(CACHE_NAME + '-v' + CACHE_VERSION).then(function(cache) {
+    caches.open(CACHE_NAME + "-v" + CACHE_VERSION).then(function(cache) {
       return cache.addAll(filesToCache)
         .then(function (response) {
-          console.log('Files are cached successfully.');
+          console.log("Files are cached successfully.");
           return response;
         })
     })
@@ -25,7 +25,7 @@ self.oninstall = function(event) {
 };
 
 self.onactivate = function(event) {
-  var currentCacheName = CACHE_NAME + '-v' + CACHE_VERSION;
+  var currentCacheName = CACHE_NAME + "-v" + CACHE_VERSION;
   caches.keys().then(function(cacheNames) {
     return Promise.all(
       cacheNames.map(function(cacheName) {
@@ -51,10 +51,10 @@ self.onfetch = function(event) {
 
       return fetch(request).then(function(response) {
         var responseToCache = response.clone();
-        caches.open(CACHE_NAME + '-v' + CACHE_VERSION).then(
+        caches.open(CACHE_NAME + "-v" + CACHE_VERSION).then(
           function(cache) {
             cache.put(request, responseToCache).catch(function(err) {
-              console.warn(request.url + ': ' + err.message);
+              console.warn(request.url + ": " + err.message);
             });
           });
         return response;

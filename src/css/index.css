@@ -10,6 +10,10 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+*, :after, :before {
+  box-sizing: border-box;
+}
+
 .mdl-layout__header-row.custom-header {
   padding-right: 15px;
   padding-left: 15px;
@@ -175,7 +179,7 @@ input:focus {
   top: 5px;
   right: 0;
   padding-left: 5px;
-  color: #03A9F4;
+  color: #757575;
   font-size: 12px;
 }
 
@@ -195,13 +199,18 @@ input:focus {
 .message-container .timestamp {
   display: flex;
   height: 20px;
-  color: #9E9E9E;
+  color: #757575;
   font-size: 10px;
   justify-content: flex-end;
 }
 
-.message-container .material-icons.schedule {
-  color: #9E9E9E;
+.message-container .material-icons.schedule,
+.mdl-navigation .mdl-navigation__link i {
+  color: #757575;
+}
+
+.mdl-navigation .mdl-navigation__link i {
+  margin-right: 10px;
 }
 
 .message-container div {
@@ -227,7 +236,10 @@ input:focus {
   top: 10px;
 }
 
-.modal-dialog { z-index: 100; }
+.modal-dialog {
+  z-index: 100;
+}
+
 .modal-dialog,
 .modal-dialog-overlay,
 .modal-dialog-content {
@@ -240,16 +252,17 @@ input:focus {
 
 .modal-dialog-overlay {
   z-index: 99;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.18);
 }
 
 .modal-dialog-content {
   z-index: 100;
   width: 280px;
-  height: fit-content;
+  max-height: 185px;
   margin: auto;
   background: #fff;
-  box-shadow: 0 9px 46px 8px rgba(0, 0, 0, 0.14), 0 11px 15px -7px rgba(0, 0, 0, 0.12), 0 24px 38px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 9px 46px 8px rgba(0, 0, 0, 0.14), 0fv 11px 15px -7px rgba(0, 0, 0, 0.12), 0 24px 38px 3px rgba(0, 0, 0, 0.2);
+  position: absolute;
 }
 
 .modal-dialog-content p {
@@ -321,10 +334,6 @@ input:focus {
   bottom: 0;
   left: 0;
   margin: auto;
-}
-
-.modal-dialog .modal-dialog-content {
-  min-height: 170px;
 }
 
 .spinner {

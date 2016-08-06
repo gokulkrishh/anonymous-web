@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import reactMixin from 'react-mixin';
-import Message from './Message';
-import Header from './Header';
-import Modal from './Modal';
-import Input from './Input';
-import Spinner from './Spinner';
-import moment from 'moment';
-var firebase = require('firebase');
-import ReactFireMixin from 'reactfire';
+import React, { Component } from "react";
+import reactMixin from "react-mixin";
+import Message from "./Message";
+import Header from "./Header";
+import Modal from "./Modal";
+import Input from "./Input";
+import Spinner from "./Spinner";
+import moment from "moment";
+var firebase = require("firebase");
+import ReactFireMixin from "reactfire";
 
 const config = require("./config.json");
 firebase.initializeApp(config);
@@ -15,15 +15,16 @@ firebase.initializeApp(config);
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.handleClose = this.handleClose.bind(this);
+    this.closeChat = this.closeChat.bind(this);
+    this.hideModal = this.hideModal.bind(this);
     this.addToQueue = this.addToQueue.bind(this);
     this.initializeChat = this.initializeChat.bind(this);
     this.showSpinner = this.showSpinner.bind(this);
     this.offlineEvent = this.offlineEvent.bind(this);
     this.firebaseChatRef = null;
-     /*eslint new-parens: 0*/
+    /*eslint new-parens: 0*/
     this.chatName = moment.utc(new Date).valueOf().toString().slice(0, 8);
-    this.chatId = window.navigator.userAgent.replace(/\D+/g, '');
+    this.chatId = window.navigator.userAgent.replace(/\D+/g, "");
     this.state = {
       chats: [],
       chatId: this.chatId,
@@ -64,7 +65,7 @@ export default class App extends Component {
 
   onReloadCloseChat() {
     window.onbeforeunload = () => {
-      this.closeConnection();
+      this.removeConnection();
     };
   }
 
@@ -81,13 +82,17 @@ export default class App extends Component {
   }
 
   closeConnection() {
+    this.removeConnection();
+    this.initializeChat();
+  }
+
+  removeConnection() {
     const {chatUrl, chatId} = this.state;
     firebase.database().ref("chats/chat_" + chatId).remove();
     localStorage.removeItem("chat");
     if (chatUrl) {
       firebase.database().ref("chats/chat_" + chatUrl).remove();
     }
-    this.initializeChat();
   }
 
   getQueue(queue, queueKey) {
@@ -130,7 +135,7 @@ export default class App extends Component {
 
   checkForDisconnection() {
     const {chatUrl} = this.state;
-    firebase.database().ref("chats").on('child_removed', (oldChildSnapshot) => {
+    firebase.database().ref("chats").on("child_removed", (oldChildSnapshot) => {
       if ("chat_" + chatUrl === oldChildSnapshot.key) {
         this.closeConnection();
       }
@@ -159,7 +164,7 @@ export default class App extends Component {
       isQueued: true
     });
 
-    this.firebaseQueueRef.on('child_added', (snapshot) => {
+    this.firebaseQueueRef.on("child_added", (snapshot) => {
       this.storeChat();
     });
     this.checkForOpenConnection();
@@ -175,10 +180,17 @@ export default class App extends Component {
   }
 
   componentWillUnmount() {
+    this.removeConnection();
     this.firebaseChatRef.off();
   }
 
-  handleClose() {
+  hideModal() {
+    this.setState({
+      showModal: false
+    });
+  }
+
+  closeChat() {
     this.setState({
       showModal: true
     });
@@ -186,18 +198,18 @@ export default class App extends Component {
 
   render() {
     const {chatUrl, otherUserId, status, showModal, showSpinner, spinnerText} = this.state;
-
     return (
       <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <Header
           status={status}
-          closeCallback={this.handleClose}
+          closeCallback={this.closeChat}
         />
 
         <Modal
           chatUrl={chatUrl}
           otherUserId={otherUserId}
           showModal={showModal}
+          hideModal={this.hideModal}
         />
 
         <Spinner showSpinner={showSpinner} spinnerText={spinnerText}/>
