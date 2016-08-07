@@ -37,9 +37,9 @@ export default class App extends Component {
   }
 
   componentWillMount() {
-    this.initializeChat();
-    this.onReloadCloseChat();
     this.offlineEvent();
+    this.onReloadCloseChat();
+    this.initializeChat();
   }
 
   offlineEvent() {
@@ -64,7 +64,7 @@ export default class App extends Component {
   }
 
   onReloadCloseChat() {
-    window.onbeforeunload = () => {
+    window.onbeforebind = () => {
       this.removeConnection();
     };
   }
@@ -107,6 +107,13 @@ export default class App extends Component {
     });
   }
 
+  addChatConnection(chatUrl) {
+    this.addChat = firebase.database().ref("chats/chat_" + chatUrl);
+    this.addChat.update({
+      connection: true
+    });
+  }
+
   checkForOpenConnection() {
     const {chatId} = this.state;
     const myChatId = "chat_" + chatId;
@@ -119,6 +126,7 @@ export default class App extends Component {
             var chatUrl = this.getChatHash(otherUserId, chatId);
             if (!snapshot.child(chatUrl).exists()) {
               this.removeQueue();
+              this.addChatConnection(chatUrl);
               this.setState({
                 otherUserId: otherUserId,
                 chatUrl: chatUrl,

@@ -23,6 +23,7 @@ export default class Modal extends Component {
       this.firebaseRef.ref("chats/chat_" + otherUserId).remove();
     }
     localStorage.removeItem("chat");
+    this.close(); 
   }
 
   componentWillUnmount() {
@@ -44,7 +45,7 @@ export default class Modal extends Component {
           <h4 className="mdl-dialog__title">Leave chat</h4>
           <p>Are you sure, you want to leave this chat ?</p>
           <div className="modal-dialog-actions">
-            <button type="button" className="mdl-button close-chat" onClick={this.leaveChat}>Leave</button>
+            <button type="button" className="mdl-button" onClick={this.leaveChat}>Leave</button>
             <button type="button" className="mdl-button" onClick={this.close}>Cancel</button>
           </div>
         </div>
