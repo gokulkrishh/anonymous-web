@@ -212,7 +212,7 @@ export default class App extends Component {
       var snapshotData = snapshot.val();
       if (snapshotData && snapshotData.typing) {
         this.setState({
-          status: 'typing..'
+          status: 'typing...'
         });
       }
       else {

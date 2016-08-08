@@ -11,7 +11,7 @@ export default class Input extends Component {
     this.scrollToEnd = this.scrollToEnd.bind(this);
     this.firebaseRef = null;
     this.addUserToChat = null;
-    this.defaultInterval = 400;
+    this.defaultInterval = 250;
     this.timeoutRef = null;
     /*eslint new-parens: 0*/
     this.chatId = window.navigator.userAgent.replace(/\D+/g, '');
