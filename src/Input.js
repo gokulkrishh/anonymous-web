@@ -46,15 +46,15 @@ export default class Input extends Component {
     });
 
     userInput.value = "";
-    this.scrollToEnd();
+    setTimeout(() => {
+      this.scrollToEnd();
+    }, 0);
   }
 
   scrollToEnd() {
-    var target = document.querySelector('.page-content');
-    var scrollHeight = target.scrollHeight + 300;
-    if (target && target.scrollTo) {
-      target.scrollTo(0, scrollHeight);
-    }
+    var target = document.querySelector('.message-container');
+    var lastElement = target.children[target.childElementCount - 1];
+    lastElement.scrollIntoView();
   }
 
   handleKeyPress(event) {
