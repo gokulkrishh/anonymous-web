@@ -22,6 +22,7 @@ export default class App extends Component {
     this.showSpinner = this.showSpinner.bind(this);
     this.offlineEvent = this.offlineEvent.bind(this);
     this.firebaseChatRef = null;
+    this.addChat = null;
     /*eslint new-parens: 0*/
     this.chatName = moment.utc(new Date).valueOf().toString().slice(0, 8);
     this.chatId = window.navigator.userAgent.replace(/\D+/g, "");
@@ -112,6 +113,7 @@ export default class App extends Component {
     this.addChat.update({
       connection: true
     });
+    this.listenToTyping();
   }
 
   checkForOpenConnection() {
@@ -204,8 +206,25 @@ export default class App extends Component {
     });
   }
 
+  listenToTyping() {
+    const {chatUrl, otherUserId} = this.state;
+    firebase.database().ref(`chats/chat_${chatUrl}/${otherUserId}`).on("value", (snapshot) => {
+      var snapshotData = snapshot.val();
+      if (snapshotData && snapshotData.typing) {
+        this.setState({
+          status: 'typing..'
+        });
+      }
+      else {
+        this.setState({
+          status: 'online'
+        });
+      }
+    });
+  }
+
   render() {
-    const {chatUrl, otherUserId, status, showModal, showSpinner, spinnerText} = this.state;
+    const {chatUrl, chatId, otherUserId, status, showModal, showSpinner, spinnerText} = this.state;
     return (
       <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <Header
@@ -230,9 +249,10 @@ export default class App extends Component {
             />
           </div>
           <Input
-            status={status}
+            chatId={chatId}
             chatUrl={chatUrl}
             otherUserId={otherUserId}
+            status={status}
           />
         </main>
       </div>

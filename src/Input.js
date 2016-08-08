@@ -7,8 +7,12 @@ export default class Input extends Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleKeyUp = this.handleKeyUp.bind(this);
     this.scrollToEnd = this.scrollToEnd.bind(this);
     this.firebaseRef = null;
+    this.addUserToChat = null;
+    this.defaultInterval = 400;
+    this.timeoutRef = null;
     /*eslint new-parens: 0*/
     this.chatId = window.navigator.userAgent.replace(/\D+/g, '');
     this.state = {
@@ -33,6 +37,7 @@ export default class Input extends Component {
     }
 
     var msgStatus = (status === "online") ? "online" : "schedule";
+
     this.firebaseRef.push({
       id: this.state.chatId,
       message: userInput.value,
@@ -53,12 +58,36 @@ export default class Input extends Component {
   }
 
   handleKeyPress(event) {
+    clearTimeout(this.timeoutRef);
+
+    const {chatId, chatUrl} = this.props;
+
+    this.addUserToChat = firebase.database().ref("chats/chat_" + chatUrl + "/" + chatId);
+
     if (event.key === 'Enter') {
+      this.addUserToChat.update({
+        typing: false
+      });
       this.handleSubmit();
+    }
+    else {
+      this.addUserToChat.update({
+        typing: true
+      });
     }
   }
 
+  handleKeyUp() {
+    clearTimeout(this.timeoutRef);
+    this.timeoutRef = setTimeout(() => {
+      this.addUserToChat.update({
+        typing: false
+      });
+    }, this.defaultInterval);
+  }
+
   componentWillUnmount() {
+    this.addUserToChat.off();
     this.firebaseRef.off();
   }
 
@@ -67,7 +96,7 @@ export default class Input extends Component {
       <div>
         <div className="message-container-overlay top"></div>
         <div className="mdl-textfield mdl-js-textfield">
-          <input type="text" placeholder="Type your message.." onKeyPress={this.handleKeyPress}/>
+          <input type="text" placeholder="Type your message.." onKeyDown={this.handleKeyPress} onKeyUp={this.handleKeyUp}/>
           <button className="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onClick={this.handleSubmit}>
             <i className="material-icons">send</i>
           </button>
