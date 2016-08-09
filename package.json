@@ -16,7 +16,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "flow": "flow"
   },
   "homepage": "https://gokulkrishh.github.io/anonymous-web",
   "eslintConfig": {

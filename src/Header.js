@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+// @flow
+
+import React, { Component, PropTypes } from 'react';
 import logo from './images/logo.png';
 
 export default class Header extends Component {
@@ -6,7 +8,7 @@ export default class Header extends Component {
     status: 'connecting..'
   }
 
-  constructor(props) {
+  constructor(props: Object) {
     super(props);
     this.handleClose = this.handleClose.bind(this);
   }
