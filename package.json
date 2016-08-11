@@ -23,7 +23,7 @@
     "copy-assets": "copyfiles -f './manifest.json' './build/'",
     "pre-cache": "sw-precache --root=build --config=./sw-precache-config.json --verbose --no-handle-fetch"
   },
-  "homepage": "https://gokulkrishh.github.io/anonymous-web",
+  "homepage": "./",
   "eslintConfig": {
     "extends": "./node_modules/react-scripts/config/eslint.js"
   }
