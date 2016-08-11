@@ -6,7 +6,7 @@
 
 # Features
 
- - Chat instantly with new strangers (no login)
+ - Chat instantly with strangers (no login)
 
  - Messages sent, typing status
 
@@ -14,7 +14,7 @@
 
  - Native like application using material design
 
- - Works both in Android & iOS
+ - Works perfectly in Android, iOS & Windows
 
 *GIF*
 
