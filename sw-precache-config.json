@@ -1,7 +1,8 @@
 {
   "staticFileGlobs": [
     "build/static/css/**.css",
-    "build/static/images/**.*",
+    "build/static/images/android-chrome-512x512.png",
+    "build/static/images/android-chrome-192x192.png",
     "build/static/media/**.*",
     "build/static/js/**.js",
     "build/index.html"

@@ -65,12 +65,7 @@ npm run build
 After running `npm run build`, use below command to deploy in gh-pages
 
 ````sh
-git checkout -B gh-pages
-git add -f build
-git commit -am "Rebuild website"
-git push origin :gh-pages
-git subtree push --prefix build origin gh-pages
-git checkout -
+npm run deploy
 ````
 
 #### MIT Licensed
