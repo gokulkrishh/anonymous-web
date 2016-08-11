@@ -3,19 +3,19 @@
   "name": "Anonymous Chat",
   "icons": [
 		{
-			"src": "./src/images/android-chrome-192x192.png",
+			"src": "./static/images/android-chrome-192x192.png",
 			"sizes": "192x192",
 			"type": "image\/png"
 		},
 		{
-			"src": "./src/images/android-chrome-512x512.png",
+			"src": "./static/images/android-chrome-512x512.png",
 			"sizes": "512x512",
 			"type": "image\/png"
 		}
 	],
   "display": "standalone",
   "orientation": "portrait",
-  "start_url": "/",
+  "start_url": "/index.html",
   "theme_color": "#00897B",
   "background_color": "#fff"
 }
