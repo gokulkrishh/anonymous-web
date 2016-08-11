@@ -2,7 +2,10 @@
 
 > *A <a href="https://facebook.github.io/react/">React</a> powered progressive web application using Firebase Realtime Database.*
 
-## [Live](https://anonymouschat.in)
+[![npm version](https://badge.fury.io/js/react-material-spinner.svg)](https://badge.fury.io/js/anonymous-web)
+
+
+### [Live](https://anonymouschat.in)
 
 # Features
 
