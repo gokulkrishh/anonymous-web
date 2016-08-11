@@ -1,6 +1,4 @@
-// @flow
-
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import logo from './images/logo.png';
 
 export default class Header extends Component {

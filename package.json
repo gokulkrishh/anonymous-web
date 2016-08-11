@@ -8,7 +8,8 @@
     "moment": "^2.14.1",
     "react-mixin": "^2.0.2",
     "react-scripts": "0.2.1",
-    "reactfire": "^1.0.0"
+    "reactfire": "^1.0.0",
+    "sw-precache": "^4.0.0"
   },
   "dependencies": {
     "react": "^15.2.1",
@@ -17,7 +18,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "flow": "flow"
+    "pre-cache": "sw-precache --config=./sw-precache-config.json --verbose --no-handle-fetch"
   },
   "homepage": "https://gokulkrishh.github.io/anonymous-web",
   "eslintConfig": {
