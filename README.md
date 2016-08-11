@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/gokulkrishh/anonymous-web/master/screenshot/logo.png" width="450px" />
+# <img src="https://raw.githubusercontent.com/gokulkrishh/anonymous-web/master/screenshot/logo.png" width="450px" />
 
 > *A <a href="https://facebook.github.io/react/">React</a> powered progressive web application using Firebase Realtime Database.*
 
@@ -56,7 +56,7 @@ npm run start
 npm run build
 ````
 
-*Also above command will, copy static assets like images to service-worker.js*
+*Also above command will copy static assets and add it to service-worker.js*
 
 ### Deploy
 
