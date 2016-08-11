@@ -2,7 +2,7 @@
 
 > *A <a href="https://facebook.github.io/react/">React</a> powered progressive web application using Firebase Realtime Database.*
 
-#### SSL certificate for domain [https://anonymouschat.in](http://anonymouschat.in) is in progress
+## [Live](https://anonymouschat.in)
 
 # Features
 
