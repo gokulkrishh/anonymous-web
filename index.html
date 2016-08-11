@@ -27,7 +27,7 @@
     <script src="./serviceWorker.js"></script>
     <script type="text/javascript">
       if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("./serviceWorker.js", { scope: "./" }).then(function(reg) {
+        navigator.serviceWorker.register("./service-worker.js", { scope: "./" }).then(function(reg) {
           if (reg.installing) {
             console.log("Service worker installing");
           }
