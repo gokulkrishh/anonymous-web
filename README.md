@@ -2,6 +2,8 @@
 
 > *A <a href="https://facebook.github.io/react/">React</a> powered progressive web application using Firebase Realtime Database.*
 
+#### SSL certificate for domain [https://anonymouschat.in](http://anonymouschat.in) is in progress
+
 # Features
 
  - Chat instantly with new strangers (no login)
@@ -70,7 +72,5 @@ git push origin :gh-pages
 git subtree push --prefix build origin gh-pages
 git checkout -
 ````
-
-
 
 #### MIT Licensed
