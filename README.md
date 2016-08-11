@@ -36,7 +36,7 @@
 
 - <a href="https://github.com/GoogleChrome/sw-precache">SW precache</a>
 
-- <a href="https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html">Icons generator</a>
+- <a href="http://realfavicongenerator.net/">Icons generator</a>
 
 *few other utility libraries, check my package.json file*
 
