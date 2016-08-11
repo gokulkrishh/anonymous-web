@@ -1,6 +1,6 @@
 {
   "staticFileGlobs": [
-    "build/static/**.css",
+    "build/static/css/**.css",
     "build/static/images/**.*",
     "build/static/media/**.*",
     "build/static/js/**.js",
