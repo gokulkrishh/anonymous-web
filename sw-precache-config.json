@@ -13,7 +13,7 @@
   ],
   "stripPrefix": "build/",
   "runtimeCaching": [{
-    "urlPattern": "/fonts.googleapis.com/",
-    "handler": "cacheFirst"
+    "urlPattern": "https://fonts.googleapis.com/",
+    "handler": "networkFirst"
   }]
 }
