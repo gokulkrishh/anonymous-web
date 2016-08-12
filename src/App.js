@@ -65,7 +65,7 @@ export default class App extends Component {
   }
 
   onReloadCloseChat() {
-    window.onbeforebind = () => {
+    window.onunload = window.onbeforeunload = () => {
       this.removeConnection();
     };
   }
