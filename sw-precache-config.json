@@ -9,7 +9,7 @@
     "build/static/images/android-chrome-192x192.png",
     "build/static/media/**.*",
     "build/static/js/**.js",
-    "build/index.html",
+    "build/index.html"
   ],
   "stripPrefix": "build/"
 }
