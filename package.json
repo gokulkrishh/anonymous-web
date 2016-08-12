@@ -20,7 +20,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build && npm run copy-images && npm run copy-assets && npm run pre-cache",
     "copy-images": "copyfiles -f './src/images/**.*' './build/static/images'",
-    "copy-assets": "copyfiles -f './assests/**.*' './build/'",
+    "copy-assets": "copyfiles -f './manifest.json' './build/'",
     "pre-cache": "sw-precache --root=build/ --config=./sw-precache-config.json --verbose",
     "deploy": "bash deploy.sh"
   },

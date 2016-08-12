@@ -11,5 +11,9 @@
     "build/static/js/**.js",
     "build/index.html"
   ],
-  "stripPrefix": "build/"
+  "stripPrefix": "build/",
+  "runtimeCaching": [{
+    "urlPattern": "/fonts.googleapis.com/",
+    "handler": "cacheFirst"
+  }]
 }
