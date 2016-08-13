@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './images/logo.png';
+import logo from './logo.png';
 
 export default class Header extends Component {
   static defaultProps = {

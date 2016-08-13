@@ -54,7 +54,9 @@ export default class Input extends Component {
   scrollToEnd() {
     var target = document.querySelector('.message-container');
     var lastElement = target.children[target.childElementCount - 1];
-    lastElement.scrollIntoView();
+    if (lastElement) {
+      lastElement.scrollIntoView();
+    }
   }
 
   handleKeyPress(event) {

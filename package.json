@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "devDependencies": {
-    "copyfiles": "^1.0.0",
+    "copy": "^0.3.0",
     "firebase": "^3.2.1",
-    "material-design-lite": "^1.1.3",
+    "material-design-lite": "^1.2.0",
     "moment": "^2.14.1",
     "react-mixin": "^2.0.2",
     "react-scripts": "0.2.1",
@@ -13,14 +13,13 @@
     "sw-precache": "^4.0.0"
   },
   "dependencies": {
-    "react": "^15.2.1",
-    "react-dom": "^15.2.1"
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && npm run copy-images && npm run copy-assets && npm run pre-cache",
-    "copy-images": "copyfiles -f './src/images/**.*' './build/static/images'",
-    "copy-assets": "copyfiles -f './manifest.json' './build/'",
+    "build": "react-scripts build && npm run copy-assets && npm run pre-cache",
+    "copy-assets": "node task.copy.js",
     "pre-cache": "sw-precache --root=build/ --config=./sw-precache-config.json --verbose",
     "deploy": "bash deploy.sh"
   },
