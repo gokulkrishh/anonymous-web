@@ -14,16 +14,15 @@ export default class Modal extends Component {
   }
 
   leaveChat() {
-    const {chatUrl, otherUserId} = this.props;
+    const {chatURL, otherUserId} = this.props;
     this.firebaseRef = firebase.database();
-    if (chatUrl) {
-      this.firebaseRef.ref("chats/chat_" + chatUrl).remove();
+    if (chatURL) {
+      this.firebaseRef.ref("chats/" + chatURL).remove();
     }
     if (otherUserId) {
-      this.firebaseRef.ref("chats/chat_" + otherUserId).remove();
+      this.firebaseRef.ref("chats/user_" + otherUserId).remove();
     }
-    localStorage.removeItem("chat");
-    this.close(); 
+    this.close();
   }
 
   componentWillUnmount() {

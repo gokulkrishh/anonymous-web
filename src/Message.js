@@ -14,18 +14,18 @@ export default class Message extends Component {
       chatId: this.chatId,
       chatName: this.chatName,
       chats: [],
-      otherUserId: null
+      otherUserID: null
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.otherUserId && nextProps.chatUrl) {
-      this.firebaseRef = firebase.database().ref("chats/chat_" + nextProps.chatUrl + "/messages");
+    if (nextProps.otherUserID && nextProps.chatURL) {
+      this.firebaseRef = firebase.database().ref("chats/" + nextProps.chatURL + "/messages");
       if (typeof this.firebaseRefs["chats"] === 'undefined') {
         this.bindAsArray(this.firebaseRef, "chats");
       }
       this.setState({
-        otherUserId: nextProps.otherUserId
+        otherUserID: nextProps.otherUserID
       });
     }
   }

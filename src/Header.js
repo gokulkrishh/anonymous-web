@@ -12,10 +12,7 @@ export default class Header extends Component {
   }
 
   handleClose() {
-    const {status} = this.props;
-    if (status === "online") {
-      this.props.closeCallback();
-    }
+    this.props.closeCallback();
   }
 
   htmlCloseBtn() {

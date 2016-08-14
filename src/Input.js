@@ -14,21 +14,20 @@ export default class Input extends Component {
     this.defaultInterval = 250;
     this.timeoutRef = null;
     /*eslint new-parens: 0*/
-    this.chatId = window.navigator.userAgent.replace(/\D+/g, '');
+    this.userID = window.navigator.userAgent.replace(/\D+/g, '');
     this.state = {
-      chatId: this.chatId,
-      otherUserId: null
+      userID: this.userID,
+      otherUserID: null
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.otherUserId && nextProps.chatUrl) {
-      this.firebaseRef = firebase.database().ref("chats/chat_" + nextProps.chatUrl + "/messages");
+    if (nextProps.otherUserID && nextProps.chatURL) {
+      this.firebaseRef = firebase.database().ref("chats/" + nextProps.chatURL + "/messages");
     }
   }
 
   handleSubmit(event) {
-    const {status} = this.props;
     var userInput = document.querySelector("input");
     userInput.focus();
 
@@ -36,13 +35,10 @@ export default class Input extends Component {
       return false;
     }
 
-    var msgStatus = (status === "online") ? "online" : "schedule";
-
     this.firebaseRef.push({
-      id: this.state.chatId,
+      id: this.state.userID,
       message: userInput.value,
-      timestamp: moment.utc(new Date).valueOf(),
-      status: msgStatus
+      timestamp: moment.utc(new Date).valueOf()
     });
 
     userInput.value = "";
@@ -62,9 +58,9 @@ export default class Input extends Component {
   handleKeyPress(event) {
     clearTimeout(this.timeoutRef);
 
-    const {chatId, chatUrl} = this.props;
+    const {userID, chatURL} = this.props;
 
-    this.addUserToChat = firebase.database().ref("chats/chat_" + chatUrl + "/" + chatId);
+    this.addUserToChat = firebase.database().ref("chats/" + chatURL + "/" + userID);
 
     if (event.key === 'Enter') {
       this.addUserToChat.update({

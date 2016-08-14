@@ -5,7 +5,6 @@ import Header from "./Header";
 import Modal from "./Modal";
 import Input from "./Input";
 import Spinner from "./Spinner";
-import moment from "moment";
 var firebase = require("firebase");
 import ReactFireMixin from "reactfire";
 
@@ -21,17 +20,16 @@ export default class App extends Component {
     this.initializeChat = this.initializeChat.bind(this);
     this.showSpinner = this.showSpinner.bind(this);
     this.offlineEvent = this.offlineEvent.bind(this);
-    this.firebaseChatRef = null;
+    this.firebaseChatsRef = null;
+    this.firebaseDB = firebase.database();
     this.addChat = null;
     /*eslint new-parens: 0*/
-    this.chatName = moment.utc(new Date).valueOf().toString().slice(0, 8);
-    this.chatId = window.navigator.userAgent.replace(/\D+/g, "");
+    this.userID = window.navigator.userAgent.replace(/\D+/g, "");
     this.state = {
       chats: [],
-      chatId: this.chatId,
-      chatName: this.chatName,
-      chatUrl: "",
-      otherUserId: null,
+      userID: this.userID,
+      chatURL: null,
+      otherUserID: null,
       showModal: false,
       showSpinner: true
     };
@@ -39,125 +37,121 @@ export default class App extends Component {
 
   componentWillMount() {
     this.offlineEvent();
-    this.onReloadCloseChat();
+    this.checkFirebaseConnection();
     this.initializeChat();
+  }
+
+  checkFirebaseConnection() {
+    this.firebaseConnection = this.firebaseDB.ref(".info/connected");
+    this.firebaseConnection.on("value", (snap) => {
+      if (snap.val() === true) {
+        this.firebaseUserRef.update({
+          status: "online"
+        });
+        this.firebaseUserRef.onDisconnect().remove(() => {
+          if (this.addChat) {
+            this.addChat.onDisconnect().remove();
+          }
+        });
+      }
+    });
   }
 
   offlineEvent() {
     window.addEventListener("offline", () => {
       this.setState({
-        status: "no internet"
+        status: "no internet",
+        spinnerText: "No internet connection"
       });
     });
 
     window.addEventListener("online", () => {
-      if (this.state.chatUrl) {
-        this.setState({
-          status: "online"
-        });
-      }
-      else {
-        this.setState({
-          status: "connected"
-        });
-      }
+      this.setState({
+        status: "connected",
+        spinnerText: "Looking for anonymous.."
+      });
     });
-  }
-
-  onReloadCloseChat() {
-    window.onunload = window.onbeforeunload = () => {
-      this.removeConnection();
-    };
   }
 
   initializeChat() {
-    const {chatId} = this.state;
+    const {userID} = this.state;
     this.setState({
       status: "connecting..",
+      spinnerText: "Looking for anonymous..",
       showModal: false,
       showSpinner: true
     });
-    this.firebaseChatRef = firebase.database().ref("chats");
-    this.firebaseQueueRef = firebase.database().ref("chats/chat_" + chatId + "/queue");
+    this.firebaseChatsRef = this.firebaseDB.ref("chats");
+    this.firebaseUserRef = this.firebaseDB.ref("chats/user_" + userID);
     this.addToQueue();
   }
 
-  closeConnection() {
-    this.removeConnection();
+  removeConnection() {
+    const {chatURL, userID} = this.state;
+    this.firebaseDB.ref("chats/user_" + userID).remove();
+    if (chatURL) {
+      this.firebaseDB.ref("chats/" + chatURL).remove();
+    }
     this.initializeChat();
   }
 
-  removeConnection() {
-    const {chatUrl, chatId} = this.state;
-    firebase.database().ref("chats/chat_" + chatId).remove();
-    localStorage.removeItem("chat");
-    if (chatUrl) {
-      firebase.database().ref("chats/chat_" + chatUrl).remove();
-    }
-  }
-
-  getQueue(queue, queueKey) {
-    return (queue[queueKey[0]] && queue[queueKey[0]].isQueued);
-  }
-
-  removeQueue() {
-    const {chatId} = this.state;
-    this.firebaseQueueRef.update({
-      id: chatId,
+  removeUserFromQueue(chatURL) {
+    const {userID} = this.state;
+    this.firebaseUserRef.update({
+      id: userID,
       isQueued: false
     });
   }
 
-  addChatConnection(chatUrl) {
-    this.addChat = firebase.database().ref("chats/chat_" + chatUrl);
+  addChatConnection(chatURL) {
+    this.addChat = this.firebaseDB.ref("chats/" + chatURL);
     this.addChat.update({
       connection: true
     });
+    this.checkFirebaseConnection();
     this.listenToTyping();
   }
 
   checkForOpenConnection() {
-    const {chatId} = this.state;
-    const myChatId = "chat_" + chatId;
-    this.firebaseChatRef.on("value", (snapshot) => {
-      snapshot.forEach((childSnapshot) => {
-        if (childSnapshot.key !== myChatId && !this.state.chatUrl) {
-          var queue = childSnapshot.val().queue;
-          if (queue && queue.isQueued) {
-            var otherUserId = queue.id;
-            var chatUrl = this.getChatHash(otherUserId, chatId);
-            if (!snapshot.child(chatUrl).exists()) {
-              this.removeQueue();
-              this.addChatConnection(chatUrl);
-              this.setState({
-                otherUserId: otherUserId,
-                chatUrl: chatUrl,
-                status: "online",
-                showSpinner: false
-              });
-              this.checkForDisconnection(chatUrl);
-            }
+    const {userID} = this.state;
+    this.firebaseChatsRef.orderByChild("chat_").on("value", (snapshot) => {
+      snapshot.forEach((userData) => {
+        var user = userData.val();
+        if (user.id !== userID && user.isQueued) {
+          var otherUserID = user.id
+          var chatURL = this.getChatHash(otherUserID, userID);
+          var isChatExist = snapshot.child(chatURL).exists();
+          if (!isChatExist || (isChatExist && user.isQueued)) {
+            this.removeUserFromQueue(chatURL);
+            this.addChatConnection(chatURL);
+            this.checkUserDisconnection();
+            this.setState({
+              otherUserID: otherUserID,
+              chatURL: chatURL,
+              status: "online",
+              showSpinner: false
+            });
           }
         }
       });
     });
   }
 
-  checkForDisconnection() {
-    const {chatUrl} = this.state;
-    firebase.database().ref("chats").on("child_removed", (oldChildSnapshot) => {
-      if ("chat_" + chatUrl === oldChildSnapshot.key) {
-        this.closeConnection();
+  checkUserDisconnection() {
+    const {chatURL} = this.state;
+    this.firebaseDB.ref("chats").orderByChild("chat_").on("child_removed", (oldChildSnapshot) => {
+      if (chatURL === oldChildSnapshot.key) {
+        this.removeConnection();
       }
     });
   }
 
-  getChatHash(otherUserId, userId) {
-    if (otherUserId > userId) {
-      return otherUserId + "_" + userId;
+  getChatHash(otherUserID, userId) {
+    if (otherUserID > userId) {
+      return "chat_" + otherUserID + "_" + userId;
     }
     else {
-      return userId + "_" + otherUserId;
+      return "chat_" +  userId + "_" + otherUserID;
     }
   }
 
@@ -168,30 +162,12 @@ export default class App extends Component {
   }
 
   addToQueue() {
-    const {chatId} = this.state;
-    this.firebaseQueueRef.update({
-      id: chatId,
+    const {userID} = this.state;
+    this.firebaseUserRef.update({
+      id: userID,
       isQueued: true
     });
-
-    this.firebaseQueueRef.on("child_added", (snapshot) => {
-      this.storeChat();
-    });
     this.checkForOpenConnection();
-  }
-
-  storeChat() {
-    const {chatId, chatName} = this.state;
-    var chatData = {
-      "chatName": chatName,
-      "chatId": chatId
-    };
-    localStorage.setItem("chat", JSON.stringify(chatData));
-  }
-
-  componentWillUnmount() {
-    this.removeConnection();
-    this.firebaseChatRef.off();
   }
 
   hideModal() {
@@ -207,8 +183,8 @@ export default class App extends Component {
   }
 
   listenToTyping() {
-    const {chatUrl, otherUserId} = this.state;
-    firebase.database().ref(`chats/chat_${chatUrl}/${otherUserId}`).on("value", (snapshot) => {
+    const {chatURL, otherUserID} = this.state;
+    this.firebaseDB.ref(`chats/${chatURL}/${otherUserID}`).on("value", (snapshot) => {
       var snapshotData = snapshot.val();
       if (snapshotData && snapshotData.typing) {
         this.setState({
@@ -224,7 +200,7 @@ export default class App extends Component {
   }
 
   render() {
-    const {chatUrl, chatId, otherUserId, status, showModal, showSpinner, spinnerText} = this.state;
+    const {chatURL, userID, otherUserID, status, showModal, showSpinner, spinnerText} = this.state;
     return (
       <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <Header
@@ -233,8 +209,8 @@ export default class App extends Component {
         />
 
         <Modal
-          chatUrl={chatUrl}
-          otherUserId={otherUserId}
+          chatURL={chatURL}
+          otherUserID={otherUserID}
           showModal={showModal}
           hideModal={this.hideModal}
         />
@@ -244,14 +220,14 @@ export default class App extends Component {
         <main className="mdl-layout__content">
           <div className="page-content">
             <Message
-              chatUrl={chatUrl}
-              otherUserId={otherUserId}
+              chatURL={chatURL}
+              otherUserID={otherUserID}
             />
           </div>
           <Input
-            chatId={chatId}
-            chatUrl={chatUrl}
-            otherUserId={otherUserId}
+            userID={userID}
+            chatURL={chatURL}
+            otherUserID={otherUserID}
             status={status}
           />
         </main>
