@@ -45,14 +45,13 @@ export default class App extends Component {
     this.firebaseConnection = this.firebaseDB.ref(".info/connected");
     this.firebaseConnection.on("value", (snap) => {
       if (snap.val() === true) {
+        if (this.addChat) {
+          this.addChat.onDisconnect().remove();
+        }
         this.firebaseUserRef.update({
           status: "online"
         });
-        this.firebaseUserRef.onDisconnect().remove(() => {
-          if (this.addChat) {
-            this.addChat.onDisconnect().remove();
-          }
-        });
+        this.firebaseUserRef.onDisconnect().remove();
       }
     });
   }
