@@ -2,7 +2,7 @@
 
 > *A <a href="https://facebook.github.io/react/">React</a> powered progressive web application using Firebase Realtime Database.*
 
-## [Live](https://anonymouschat.in)
+### [Live](https://anonymouschat.in)
 
 # Features
 
