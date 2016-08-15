@@ -93,7 +93,7 @@ export default class Input extends Component {
     return(
       <div>
         <div className="message-container-overlay top"></div>
-        <div className="mdl-textfield mdl-js-textfield">
+        <div className="user-input-container">
           <input type="text" placeholder="Type your message.." onKeyDown={this.handleKeyPress} onKeyUp={this.handleKeyUp}/>
           <button className="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onClick={this.handleSubmit}>
             <i className="material-icons">send</i>

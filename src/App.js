@@ -30,8 +30,9 @@ export default class App extends Component {
       userID: this.userID,
       chatURL: null,
       otherUserID: null,
+      showCloseBtn: false,
       showModal: false,
-      showSpinner: true
+      showSpinner: false
     };
   }
 
@@ -75,8 +76,9 @@ export default class App extends Component {
   initializeChat() {
     const {userID} = this.state;
     this.setState({
-      status: "connecting..",
+      status: "connecting...",
       spinnerText: "Looking for anonymous..",
+      showCloseBtn: false,
       showModal: false,
       showSpinner: true
     });
@@ -128,7 +130,8 @@ export default class App extends Component {
               otherUserID: otherUserID,
               chatURL: chatURL,
               status: "online",
-              showSpinner: false
+              showSpinner: false,
+              showCloseBtn: true
             });
           }
         }
@@ -199,10 +202,11 @@ export default class App extends Component {
   }
 
   render() {
-    const {chatURL, userID, otherUserID, status, showModal, showSpinner, spinnerText} = this.state;
+    const {chatURL, userID, otherUserID, status, showCloseBtn, showModal, showSpinner, spinnerText} = this.state;
     return (
       <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <Header
+          showCloseBtn={showCloseBtn}
           status={status}
           closeCallback={this.closeChat}
         />

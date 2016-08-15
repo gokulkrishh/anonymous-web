@@ -19,16 +19,16 @@
     <link rel="apple-touch-startup-image" href="./static/images/apple-320x460.png">
     <link rel="icon" type="image/png" href="./static/images/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="./static/images/favicon-16x16.png" sizes="16x16">
-    <link rel="mask-icon" href="./static/images/safari-pinned-tab.svg" color="#00897b">
+    <link rel="mask-icon" href="./static/images/safari-pinned-tab.svg" color="#00897B">
     <meta name="google-site-verification" content="DtMWfMRbBppx_ymZ_LSUg2F_QedH65irqX-J2ntSn_Y" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   </head>
   <body>
     <div id="root"></div>
     <script src="./service-worker.js"></script>
     <script type="text/javascript">
-      if ("serviceWorker" in navigator) {
+      if ("serviceWorker" in navigator && window.location.hostname !== "localhost") {
         navigator.serviceWorker.register("./service-worker.js", { scope: "./" }).then(function(reg) {
           if (reg.installing) {
             console.log("Service worker installing");
