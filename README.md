@@ -68,4 +68,8 @@ After running `npm run build`, use below command to deploy in gh-pages
 npm run deploy
 ````
 
+### Contributions and Feature requests
+
+If you find a bug or some good to have features, feel free to create an issue and PR's are most welcome :)
+
 #### MIT Licensed
