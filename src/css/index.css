@@ -10,6 +10,7 @@ body {
   margin: 0;
   height: 100vh;
   font-family: 'Roboto',sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 *, :after, :before {
@@ -115,15 +116,14 @@ input::-webkit-input-placeholder {
   user-select: none;
 }
 
+.mdl-button.mdl-button--icon:not(.custom-icon-intro) {
+  margin-left: 10px;
+}
+
 .mdl-button.mdl-button--icon {
   width: 50px;
   height: 50px;
   margin-right: -5px;
-}
-
-.mdl-button--icon .material-icons.custom-icon-close {
-  left: 45%;
-  font-size: 30px;
 }
 
 .mdl-layout__container .mdl-layout__content {
@@ -175,7 +175,7 @@ input::-webkit-input-placeholder {
 .message-container .msg {
   font-size: 14px;
   line-height: 19px;
-  font-family: 'Open Sans',sans-serif;
+  font-family: 'Roboto',sans-serif;
   word-wrap: break-word;
   color: rgb(38, 38, 38);
 }
@@ -360,4 +360,116 @@ input::-webkit-input-placeholder {
   font-family: 'Open Sans',sans-serif;
   font-size: 20px;
   font-weight: 400;
+}
+
+header .mdl-textfield--align-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.custom-icon-intro i {
+  transform: rotate(180deg);
+}
+
+.intro-screen {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: #ffffff;
+  z-index: 9999;
+}
+
+.intro-screen-close label {
+  left: -10px;
+  top: 3px;
+}
+
+.intro-screen-close .material-icons.custom-icon-close {
+  color: #000;
+}
+
+.intro-screen-close {
+  float: right;
+  margin-right: 5px;
+}
+
+.intro-screen-container img {
+  width: 110px;
+  height: 110px;
+  display: block;
+  margin: 0 auto;
+}
+
+.intro-screen-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 55px;
+  margin: auto;
+  width: 300px;
+  height: 300px;
+}
+
+.intro-screen p,
+.intro-screen h2 {
+  font-family: 'Roboto',sans-serif;
+}
+
+.intro-screen p {
+  text-align: center;
+  font-size: 15px;
+  margin-top: 15px;
+}
+
+.intro-screen h2 {
+  font-size: 24px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.intro-screen-footer {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.intro-screen-footer span {
+  font-size: 10px;
+}
+
+.intro-screen-footer p {
+  word-spacing: 1px;
+  font-size: 16px
+}
+
+.intro-screen-footer a {
+  color: #000;
+  text-decoration: none;
+}
+
+.intro-screen-social {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  width: 200px;
+  justify-content: center;
+}
+
+.intro-screen-social img {
+  width: 40px;
+  height: 40px;
+  margin: 40px 10px 0 10px;
+  cursor: pointer;
+}
+
+.intro-screen-social img.github-logo {
+  width: 39px;
+  height: 39px;
+  margin-top: 42px;
 }

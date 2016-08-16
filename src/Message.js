@@ -32,7 +32,6 @@ export default class Message extends Component {
 
   componentWillUnmount() {
     this.unbind("chats");
-    this.firebaseRef.off();
   }
 
   render() {

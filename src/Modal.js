@@ -25,10 +25,6 @@ export default class Modal extends Component {
     this.close();
   }
 
-  componentWillUnmount() {
-    this.firebaseRef.off();
-  }
-
   close() {
     this.props.hideModal();
   }

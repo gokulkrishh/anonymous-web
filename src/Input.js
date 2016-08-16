@@ -84,11 +84,6 @@ export default class Input extends Component {
     }, this.defaultInterval);
   }
 
-  componentWillUnmount() {
-    this.addUserToChat.off();
-    this.firebaseRef.off();
-  }
-
   render() {
     return(
       <div>

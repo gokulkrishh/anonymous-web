@@ -5,6 +5,7 @@ import Header from "./Header";
 import Modal from "./Modal";
 import Input from "./Input";
 import Spinner from "./Spinner";
+import Intro from "./Intro";
 var firebase = require("firebase");
 import ReactFireMixin from "reactfire";
 
@@ -20,15 +21,19 @@ export default class App extends Component {
     this.initializeChat = this.initializeChat.bind(this);
     this.showSpinner = this.showSpinner.bind(this);
     this.offlineEvent = this.offlineEvent.bind(this);
+    this.showIntroCallback = this.showIntroCallback.bind(this);
+    this.hideIntroCallback = this.hideIntroCallback.bind(this);
     this.firebaseChatsRef = null;
     this.firebaseDB = firebase.database();
     this.addChat = null;
+    this.isUserVisitedBefore = !localStorage.getItem("visited");
     /*eslint new-parens: 0*/
     this.userID = window.navigator.userAgent.replace(/\D+/g, "");
     this.state = {
       chats: [],
       userID: this.userID,
       chatURL: null,
+      showIntro: this.isUserVisitedBefore,
       otherUserID: null,
       showCloseBtn: false,
       showModal: false,
@@ -37,9 +42,12 @@ export default class App extends Component {
   }
 
   componentWillMount() {
-    this.offlineEvent();
-    this.checkFirebaseConnection();
-    this.initializeChat();
+    var isVisitedBefore = this.checkForPreviousVisits();
+    if (!isVisitedBefore) {
+      this.offlineEvent();
+      this.checkFirebaseConnection();
+      this.initializeChat();
+    }
   }
 
   checkFirebaseConnection() {
@@ -76,6 +84,7 @@ export default class App extends Component {
   initializeChat() {
     const {userID} = this.state;
     this.setState({
+      chatURL: "",
       status: "connecting...",
       spinnerText: "Looking for anonymous..",
       showCloseBtn: false,
@@ -87,10 +96,24 @@ export default class App extends Component {
     this.addToQueue();
   }
 
+  checkForPreviousVisits() {
+    const {showIntro} = this.state;
+    if (showIntro) {
+      localStorage.setItem("visited", true);
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
   removeConnection() {
     const {chatURL, userID} = this.state;
-    this.firebaseDB.ref("chats/user_" + userID).remove();
-    if (chatURL) {
+    if (this.firebaseDB.ref("chats/user_" + userID)) {
+      this.firebaseDB.ref("chats/user_" + userID).remove();
+    }
+
+    if (chatURL && this.firebaseDB.ref("chats/" + chatURL)) {
       this.firebaseDB.ref("chats/" + chatURL).remove();
     }
     this.initializeChat();
@@ -201,14 +224,27 @@ export default class App extends Component {
     });
   }
 
+  showIntroCallback() {
+    this.setState({
+      showIntro: true
+    })
+  }
+
+  hideIntroCallback() {
+    this.setState({
+      showIntro: false
+    })
+  }
+
   render() {
-    const {chatURL, userID, otherUserID, status, showCloseBtn, showModal, showSpinner, spinnerText} = this.state;
+    const {chatURL, showIntro, otherUserID, status, showCloseBtn, showModal, showSpinner, spinnerText, userID} = this.state;
     return (
       <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <Header
+          closeCallback={this.closeChat}
+          showIntroCallback={this.showIntroCallback}
           showCloseBtn={showCloseBtn}
           status={status}
-          closeCallback={this.closeChat}
         />
 
         <Modal
@@ -219,6 +255,8 @@ export default class App extends Component {
         />
 
         <Spinner showSpinner={showSpinner} spinnerText={spinnerText}/>
+
+        <Intro show={showIntro} hideIntroCallback={this.hideIntroCallback}/>
 
         <main className="mdl-layout__content">
           <div className="page-content">

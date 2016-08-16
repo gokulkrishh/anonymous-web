@@ -9,10 +9,15 @@ export default class Header extends Component {
   constructor(props: Object) {
     super(props);
     this.handleClose = this.handleClose.bind(this);
+    this.showIntroScreen = this.showIntroScreen.bind(this);
   }
 
   handleClose() {
     this.props.closeCallback();
+  }
+
+  showIntroScreen() {
+    this.props.showIntroCallback();
   }
 
   htmlCloseBtn() {
@@ -21,8 +26,8 @@ export default class Header extends Component {
       <div>
       {
         showCloseBtn && (
-        <label className="mdl-button mdl-js-button mdl-button--icon" htmlFor="fixed-header-drawer-exp">
-        <i className="material-icons noselect custom-icon-close" onClick={this.handleClose}>&#xE14C;</i>
+        <label className="mdl-button mdl-js-button mdl-button--icon" htmlFor="fixed-header-drawer-exp" onClick={this.handleClose}>
+        <i className="material-icons noselect custom-icon-close">&#xE14C;</i>
       </label>)
       }
       </div>
@@ -41,6 +46,9 @@ export default class Header extends Component {
           </div>
           <div className="mdl-layout-spacer"></div>
           <div className="mdl-textfield--align-right">
+            <label className="mdl-button mdl-js-button mdl-button--icon custom-icon-intro" onClick={this.showIntroScreen}>
+              <i className="material-icons">error_outline</i>
+            </label>
             {this.htmlCloseBtn()}
           </div>
         </div>
