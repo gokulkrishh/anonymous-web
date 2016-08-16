@@ -12,13 +12,13 @@
 
  - One click to close and chat with another stranger
 
- - Native like application using material design
+ - Native like application using **Material Design Lite**
 
- - Works perfectly in Android, iOS & Windows
+ - Supported platform **Android**, **iOS** & **Windows**
 
- - Supported browsers **Chrome**, **Firefox**, **Opera**, **Safari**, **Edge**
+ - Supported browsers **Chrome**, **Firefox**, **Opera**, **Safari** & **Edge**
 
-*GIF*
+**GIF**
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/gokulkrishh/anonymous-web/master/screenshot/anonymous.gif" width="300px">
@@ -72,6 +72,6 @@ npm run deploy
 
 ### Contributions and Feature requests
 
-If you find a bug or some good to have features, feel free to create an issue and PR's are most welcome :)
+If you find a bug or good to have features, feel free to create an issue and PR's are most welcome :)
 
 #### MIT Licensed
