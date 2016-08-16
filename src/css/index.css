@@ -368,7 +368,7 @@ header .mdl-textfield--align-right {
   align-items: center;
 }
 
-.custom-icon-intro i {
+.custom-icon-intro {
   transform: rotate(180deg);
 }
 
