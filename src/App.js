@@ -37,7 +37,7 @@ export default class App extends Component {
       otherUserID: null,
       showCloseBtn: false,
       showModal: false,
-      showSpinner: false
+      showSpinner: true
     };
   }
 
