@@ -16,6 +16,8 @@
 
  - Works perfectly in Android, iOS & Windows
 
+ - Supported browsers **Chrome**, **Firefox**, **Opera**, **Safari**, **Edge**
+
 *GIF*
 
 <p align="center">
