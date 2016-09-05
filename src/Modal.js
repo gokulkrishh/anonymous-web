@@ -32,16 +32,16 @@ export default class Modal extends Component {
   render() {
     const {showModal} = this.props;
     return(
-      <div className="modal-container">
+      <div className="modal__container">
       {
-        showModal && (<div className="modal-dialog">
-        <div className="modal-dialog-overlay" onClick={this.close}></div>
-        <div className="modal-dialog-content">
+        showModal && (<div className="modal__dialog">
+        <div className="modal__dialog-overlay" onClick={this.close}></div>
+        <div className="modal__dialog-content">
           <h4 className="mdl-dialog__title">Leave chat</h4>
           <p>Are you sure, you want to leave this chat ?</p>
-          <div className="modal-dialog-actions">
-            <button type="button" className="mdl-button" onClick={this.leaveChat}>Leave</button>
-            <button type="button" className="mdl-button" onClick={this.close}>Cancel</button>
+          <div className="modal__dialog-actions">
+            <button type="button" onClick={this.leaveChat}>Leave</button>
+            <button type="button" onClick={this.close}>Cancel</button>
           </div>
         </div>
       </div>)

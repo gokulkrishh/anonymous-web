@@ -26,8 +26,8 @@ export default class Header extends Component {
       <div>
       {
         showCloseBtn && (
-        <label className="mdl-button mdl-js-button mdl-button--icon" htmlFor="fixed-header-drawer-exp" onClick={this.handleClose}>
-        <i className="material-icons noselect custom-icon-close">&#xE14C;</i>
+        <label className="header__icon--close noselect" onClick={this.handleClose}>
+        <i className="material-icons noselect">&#xE14C;</i>
       </label>)
       }
       </div>
@@ -37,20 +37,22 @@ export default class Header extends Component {
   render() {
     const {status} = this.props;
     return (
-      <header className="mdl-layout__header is-casting-shadow">
-        <div className="mdl-layout__header-row custom-header">
-          <img src={logo} className="custom-icon-logo" alt="logo"/>
-          <div className="header-content">
-            <span className="mdl-layout-title custom-title noselect">Anonymous</span>
-            <span className="custom-status noselect">{status}</span>
-          </div>
-          <div className="mdl-layout-spacer"></div>
-          <div className="mdl-textfield--align-right">
-            <label className="mdl-button mdl-js-button mdl-button--icon custom-icon-intro" onClick={this.showIntroScreen}>
-              <i className="material-icons">error_outline</i>
+      <header>
+        <img src={logo} className="header__logo" alt="logo"/>
+        <div className="header__content noselect">
+          <span className="header__title">Anonymous</span>
+          <span className="header__status">{status}</span>
+        </div>
+
+        <div className="header__spacer"></div>
+
+        <div className="header__icons">
+          <div>
+            <label className="header__icon--intro" onClick={this.showIntroScreen}>
+              <i className="material-icons noselect">error_outline</i>
             </label>
-            {this.htmlCloseBtn()}
           </div>
+          {this.htmlCloseBtn()}
         </div>
       </header>
     );

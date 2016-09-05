@@ -5,7 +5,6 @@
   "devDependencies": {
     "copy": "^0.3.0",
     "firebase": "^3.2.1",
-    "material-design-lite": "^1.2.0",
     "moment": "^2.14.1",
     "react-mixin": "^2.0.2",
     "react-scripts": "0.2.1",

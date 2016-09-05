@@ -54,7 +54,7 @@ export default class Message extends Component {
       );
     });
     return(
-      <div className="message-container">
+      <div className="message__container">
         {chatMessages}
       </div>
     );

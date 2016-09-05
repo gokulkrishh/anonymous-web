@@ -239,7 +239,7 @@ export default class App extends Component {
   render() {
     const {chatURL, showIntro, otherUserID, status, showCloseBtn, showModal, showSpinner, spinnerText, userID} = this.state;
     return (
-      <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <div className="app__layout">
         <Header
           closeCallback={this.closeChat}
           showIntroCallback={this.showIntroCallback}
@@ -258,20 +258,21 @@ export default class App extends Component {
 
         <Intro show={showIntro} hideIntroCallback={this.hideIntroCallback}/>
 
-        <main className="mdl-layout__content">
-          <div className="page-content">
-            <Message
-              chatURL={chatURL}
-              otherUserID={otherUserID}
-            />
-          </div>
+        <div className="app__content">
+          <Message
+            chatURL={chatURL}
+            otherUserID={otherUserID}
+          />
+        </div>
+
+        <div className="app__input-container">
           <Input
             userID={userID}
             chatURL={chatURL}
             otherUserID={otherUserID}
             status={status}
           />
-        </main>
+        </div>
       </div>
     );
   }

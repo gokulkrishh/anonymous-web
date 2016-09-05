@@ -48,7 +48,7 @@ export default class Input extends Component {
   }
 
   scrollToEnd() {
-    var target = document.querySelector('.message-container');
+    var target = document.querySelector('.message__container');
     var lastElement = target.children[target.childElementCount - 1];
     if (lastElement) {
       lastElement.scrollIntoView();
@@ -86,15 +86,11 @@ export default class Input extends Component {
 
   render() {
     return(
-      <div>
-        <div className="message-container-overlay top"></div>
-        <div className="user-input-container">
-          <input type="text" placeholder="Type your message.." onKeyDown={this.handleKeyPress} onKeyUp={this.handleKeyUp}/>
-          <button className="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onClick={this.handleSubmit}>
-            <i className="material-icons">send</i>
-          </button>
-        </div>
-        <div className="message-container-overlay"></div>
+      <div className="app__input">
+        <input placeholder="Type your message.." onKeyDown={this.handleKeyPress} onKeyUp={this.handleKeyUp} />
+        <button onClick={this.handleSubmit}>
+          <i className="material-icons noselect">send</i>
+        </button>
       </div>
     );
   }
