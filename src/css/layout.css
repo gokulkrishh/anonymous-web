@@ -15,7 +15,6 @@ body {
   background: #ebe4db;
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
-  -webkit-tap-highlight-color: transparent;
 }
 
 .app__layout {
@@ -83,7 +82,10 @@ header {
   text-align: center;
   cursor: pointer;
   border-radius: 50%;
-  -webkit-tap-highlight-color: initial;
+}
+
+.header__icons label i {
+  margin-top: 13px;
 }
 
 .header__icon--close {
@@ -140,7 +142,12 @@ header {
   outline: none;
   border-radius: 50%;
   cursor: pointer;
-  -webkit-tap-highlight-color: initial;
+  box-shadow: 0 1px 4px 1px rgba(0, 0, 0, 0.4);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.app__input button:active {
+  box-shadow: none;
 }
 
 .spinner__container {
@@ -263,7 +270,6 @@ header {
   text-align: center;
   cursor: pointer;
   border-radius: 50%;
-  -webkit-tap-highlight-color: initial;
 }
 
 .intro__screen-close .custom-icon-close {

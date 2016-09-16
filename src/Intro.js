@@ -47,7 +47,7 @@ export default class Intro extends Component {
         </div>
 
         <div className="intro__screen-footer">
-          <p className="noselect">Built with <span>♥</span></p>
+          <p className="noselect">Built with <span>♥</span> by Gokul</p>
         </div>
       </div>)
       }
