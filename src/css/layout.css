@@ -239,6 +239,10 @@ header {
   box-shadow: 0 2px 0 -1px rgba(0, 0, 0, 0.12), 0 2px 1px 0px rgba(0, 0, 0, 0.12);
 }
 
+.message__container div:last-of-type p {
+  margin-bottom: 10px;
+}
+
 .message__container .timestamp {
   display: flex;
   height: 20px;

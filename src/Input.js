@@ -49,7 +49,7 @@ export default class Input extends Component {
 
   scrollToEnd() {
     var target = document.querySelector('.message__container');
-    var lastElement = target.children[target.childElementCount - 1];
+    var lastElement = target.children[target.childElementCount - 1].firstElementChild;
     if (lastElement) {
       lastElement.scrollIntoView();
     }
