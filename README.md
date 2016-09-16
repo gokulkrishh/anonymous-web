@@ -6,7 +6,7 @@
 
 # Features
 
- - Chat instantly with strangers (no login)
+ - Chat instantly with strangers (no login is required)
 
  - Messages sent, typing status
 
@@ -30,13 +30,13 @@
 
 ## Build Tools
 
--  <a href="https://github.com/facebookincubator/create-react-app">Create react app</a>
+- <a href="https://github.com/facebookincubator/create-react-app">Create react app</a>
 
 - <a href="https://getmdl.io">Material design lite</a>
 
 - <a href="https://firebase.google.com/docs/web/setup">Firebase realtime database</a>
 
-- <a href="https://github.com/GoogleChrome/sw-precache">SW precache</a>
+- <a href="https://github.com/GoogleChrome/sw-precache">SW Precache</a>
 
 - <a href="http://realfavicongenerator.net/">Icons generator</a>
 
@@ -72,6 +72,6 @@ npm run deploy
 
 ### Contributions and Feature requests
 
-If you find a bug or good to have features, feel free to create an issue and PR's are most welcome :)
+If you find a bug or nice to have feature, feel free to create an issue and PR's are most welcome :)
 
 #### MIT Licensed
