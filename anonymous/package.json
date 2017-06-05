@@ -1,0 +1,30 @@
+{
+  "name": "anonymous",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "if-env NODE_ENV=production && npm run -s serve || npm run -s dev",
+    "build": "preact build",
+    "serve": "preact build && preact serve",
+    "dev": "preact watch",
+    "test": "eslint src && preact test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "eslintConfig": {
+    "extends": "eslint-config-synacor"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "if-env": "^1.0.0",
+    "preact-cli": "^1.1.0"
+  },
+  "dependencies": {
+    "firebase": "^4.1.1",
+    "preact": "^8.1.0",
+    "preact-compat": "^3.16.0",
+    "react-autobind": "^1.0.6"
+  }
+}
