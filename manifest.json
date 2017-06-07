@@ -1,41 +1,19 @@
 {
-  "short_name": "Anonymous",
   "name": "Anonymous Chat",
-  "icons": [
-    {
-      "src": "./static/images/android-chrome-48x48.png",
-      "sizes": "48x48",
-      "type": "image/png"
-    },
-    {
-      "src": "./static/images/android-chrome-72x72.png",
-      "sizes": "72x72",
-      "type": "image/png"
-    },
-    {
-      "src": "./static/images/android-chrome-96x96.png",
-      "sizes": "96x96",
-      "type": "image/png"
-    },
-    {
-      "src": "./static/images/apple-icon-144x144.png",
-      "sizes": "144x144",
-      "type": "image/png"
-    },
-		{
-			"src": "./static/images/android-chrome-192x192.png",
-			"sizes": "192x192",
-			"type": "image/png"
-		},
-		{
-			"src": "./static/images/android-chrome-512x512.png",
-			"sizes": "512x512",
-			"type": "image/png"
-		}
-	],
+  "short_name": "Anonymous Chat",
+  "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
-  "start_url": "./index.html",
-  "theme_color": "#00897B",
-  "background_color": "#ffffff"
+  "background_color": "#fff",
+  "theme_color": "#333",
+  "icons": [{
+    "src": "/assets/icons/android-chrome-192x192.png",
+    "type": "image/png",
+    "sizes": "192x192"
+  },
+  {
+    "src": "/assets/icons/android-chrome-512x512.png",
+    "type": "image/png",
+    "sizes": "512x512"
+  }]
 }

@@ -1,29 +1,33 @@
 {
   "name": "anonymous-chat",
-  "version": "1.0.0",
-  "private": true,
+  "version": "2.0.0",
+  "description": "Chat with strangers randomly.",
+  "main": "index.js",
+  "scripts": {
+    "start": "if-env NODE_ENV=production && npm run -s serve || npm run -s dev",
+    "build": "preact build --no-prerender",
+    "serve": "preact build --no-prerender && preact serve",
+    "dev": "preact watch",
+    "test": "eslint src && preact test"
+  },
+  "author": "gokulkrishh",
+  "license": "MIT",
+  "eslintConfig": {
+    "extends": "eslint-config-synacor"
+  },
   "devDependencies": {
-    "copy": "^0.3.0",
-    "firebase": "^3.2.1",
-    "moment": "^2.14.1",
-    "react-mixin": "^2.0.2",
-    "react-scripts": "0.2.1",
-    "reactfire": "^1.0.0",
-    "sw-precache": "^4.0.0"
+    "eslint": "^3.19.0",
+    "if-env": "^1.0.0",
+    "preact-cli": "^1.1.1"
   },
   "dependencies": {
-    "react": "^15.3.0",
-    "react-dom": "^15.3.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build && npm run copy-assets && npm run pre-cache",
-    "copy-assets": "node task.copy.js",
-    "pre-cache": "sw-precache --root=build/ --config=./sw-precache-config.json --verbose",
-    "deploy": "bash deploy.sh"
-  },
-  "homepage": "./",
-  "eslintConfig": {
-    "extends": "./node_modules/react-scripts/config/eslint.js"
+    "dotenv": "^4.0.0",
+    "firebase": "^4.1.1",
+    "preact": "^8.1.0",
+    "preact-compat": "^3.16.0",
+    "react-autobind": "^1.0.6",
+    "react-mixin": "^3.0.5",
+    "reactfire": "^1.0.0",
+    "timeago.js": "^3.0.1"
   }
 }
