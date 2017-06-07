@@ -140,6 +140,12 @@ header {
   margin-left: 10px;
 }
 
+.header__close-icon {
+  width: 30px;
+  height: 30px;
+  margin-top: 10px;
+}
+
 .app__content {
   flex: 1;
   overflow-y: auto;
