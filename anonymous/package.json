@@ -1,7 +1,7 @@
 {
-  "name": "anonymous",
-  "version": "1.0.0",
-  "description": "",
+  "name": "anonymous chat",
+  "version": "2.0.0",
+  "description": "Chat with strangers randomly.",
   "main": "index.js",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run -s serve || npm run -s dev",
@@ -10,16 +10,15 @@
     "dev": "preact watch",
     "test": "eslint src && preact test"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "gokulkrishh",
+  "license": "MIT",
   "eslintConfig": {
     "extends": "eslint-config-synacor"
   },
   "devDependencies": {
     "eslint": "^3.19.0",
     "if-env": "^1.0.0",
-    "preact-cli": "^1.1.0"
+    "preact-cli": "^1.1.1"
   },
   "dependencies": {
     "firebase": "^4.1.1",
@@ -27,6 +26,7 @@
     "preact-compat": "^3.16.0",
     "react-autobind": "^1.0.6",
     "react-mixin": "^3.0.5",
-    "reactfire": "^1.0.0"
+    "reactfire": "^1.0.0",
+    "timeago.js": "^3.0.1"
   }
 }

@@ -63,6 +63,7 @@ body {
   background: #ebe4db;
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .app__layout {
@@ -71,14 +72,10 @@ body {
   height: 100%;
 }
 
-.noselect {
-  user-select: none;
-}
-
 header {
   width: 100%;
   height: 56px;
-  background-color: #009688;
+  background-color: #333;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
   color: #fff;
   display: flex;
@@ -98,10 +95,9 @@ header {
 }
 
 .header__logo {
-  width: 44px;
-  height: 44px;
+  width: 50px;
+  height: 50px;
   margin-right: 10px;
-  margin-top: -4px;
 }
 
 .header__status {
@@ -123,8 +119,8 @@ header {
 }
 
 .header__icons label {
-  height: 50px;
-  width: 50px;
+  height: 45px;
+  width: 45px;
   display: block;
   line-height: 60px;
   text-align: center;
@@ -132,8 +128,12 @@ header {
   border-radius: 50%;
 }
 
-.header__icons label i {
-  margin-top: 13px;
+.header__icons label:active {
+  background: rgba(252, 252, 252, 0.08);
+}
+
+.header__icons label:not(:last-child) {
+  margin-right: 5px;
 }
 
 .header__icon--close {
@@ -141,8 +141,14 @@ header {
 }
 
 .header__close-icon {
-  width: 30px;
-  height: 30px;
+  width: 29px;
+  height: 29px;
+  margin-top: 9px;
+}
+
+.header__icon {
+  width: 27px;
+  height: 27px;
   margin-top: 10px;
 }
 
@@ -189,7 +195,7 @@ header {
   right: 10px;
   top: 0;
   bottom: 0;
-  background: #009688;
+  background: #EC407A;
   color: #fff;
   width: 50px;
   height: 50px;
@@ -273,20 +279,19 @@ header {
   color: rgb(38, 38, 38);
 }
 
-.message__container .material-icons {
+.message__container img {
   position: relative;
   top: 4px;
-  right: 0;
-  padding-left: 5px;
-  color: #757575;
-  font-size: 12px;
+  right: -5px;
+  width: 14px;
+  height: 14px;
 }
 
 .message__container p {
   position: relative;
   clear: both;
-  min-width: 80px;
-  max-width: 90vw;
+  min-width: 40px;
+  max-width: 85vw;
   margin: 10px 20px 0 20px;
   padding: 4px 10px;
   border-radius: 5px;
@@ -302,7 +307,7 @@ header {
   display: flex;
   height: 20px;
   color: #757575;
-  font-size: 11px;
+  font-size: 10px;
   flex-direction: row;
   align-items: flex-start;
   float: right;
@@ -339,12 +344,13 @@ header {
 }
 
 .intro__screen-close:active {
+  opacity: 0.9;
   background-color: #ececec;
 }
 
 .intro__screen-container img {
-  width: 110px;
-  height: 110px;
+  width: 130px;
+  height: 130px;
   display: block;
   margin: 0 auto;
 }
@@ -354,7 +360,7 @@ header {
   left: 0;
   right: 0;
   bottom: 0;
-  top: 55px;
+  top: -55px;
   margin: auto;
   width: 300px;
   height: 300px;
@@ -363,7 +369,8 @@ header {
 .intro__screen p {
   text-align: center;
   font-size: 15px;
-  margin-top: 15px;
+  margin-top: 18px;
+  font-style: italic;
 }
 
 .intro__screen h2 {
@@ -378,6 +385,7 @@ header {
   left: 0;
   right: 0;
   margin: auto;
+  user-select: none;
 }
 
 .intro__screen-footer span {
@@ -398,9 +406,10 @@ header {
 .intro__screen-social {
   display: flex;
   flex-direction: row;
-  margin: 20px auto;
+  margin: 25px auto;
   width: 160px;
   justify-content: space-around;
+  user-select: none;
 }
 
 .intro__screen-social img {
@@ -414,83 +423,4 @@ header {
   height: 38px;
   margin-top: 3px;
   margin-left: 1px;
-}
-
-.modal__dialog {
-  z-index: 100;
-}
-
-.modal__dialog,
-.modal__dialog-overlay,
-.modal__dialog-content {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-
-.modal__dialog-overlay {
-  z-index: 99;
-  background: rgba(0, 0, 0, 0.18);
-}
-
-.modal__dialog-content {
-  z-index: 100;
-  width: 300px;
-  max-height: 155px;
-  margin: auto;
-  background: #fff;
-  box-shadow: 0 9px 46px 8px rgba(0, 0, 0, 0.14), 0 11px 15px -7px rgba(0, 0, 0, 0.12), 0 24px 38px 3px rgba(0, 0, 0, 0.2);
-  position: absolute;
-}
-
-.modal__dialog-content p {
-  padding-top: 10px;
-  padding-right: 15px;
-  padding-left: 20px;
-  margin-bottom: 0;
-  font-size: 15px;
-  line-height: 21px;
-}
-
-.modal__dialog-content h4 {
-  margin-bottom: 0;
-  padding-left: 20px;
-  font-size: 18px;
-  font-weight: bold;
-  padding-top: 22px;
-  margin-bottom: 2px;
-}
-
-.modal__dialog-actions {
-  display: flex;
-  flex-direction: row-reverse;
-  flex-wrap: wrap;
-  margin: 20px;
-  margin-top: 10px;
-}
-
-.modal__dialog-actions button:first-child {
-  background-color: hsla(0,0%,62%,.2);
-}
-
-.modal__dialog-actions button {
-  margin-left: 10px;
-  border: 0;
-  width: 70px;
-  padding: 10px;
-  font-size: 14px;
-  border-radius: 2px;
-  background: transparent;
-}
-
-.modal__dialog-actions button:active {
-  opacity: 0.9;
-}
-
-.header__icon {
-  width: 25px;
-  height: 25px;
-  margin-top: 12px;
 }

@@ -36,9 +36,8 @@ export default class Input extends Component {
     if (event.keyCode === 13) {
       this.currentChat.update({
         typing: false
-      }, () => {
-        this.sendMsg();
       });
+      this.sendMsg();
     }
     else {
       this.currentChat.update({
@@ -57,14 +56,14 @@ export default class Input extends Component {
   }
 
   sendMsg() {
-    console.log(this.userInput.value);
     if (!this.userInput.value.replace(/^\s+|\s+$/g, "") || !this.chatMessageRef) {
       return false;
     }
+    const timestamp = new Date();
     this.chatMessageRef.push({
       id: this.props.userId,
       message: this.userInput.value,
-      timestamp: new Date()
+      timestamp: timestamp.toString()
     });
     this.userInput.value = "";
   }

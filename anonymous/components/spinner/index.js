@@ -10,7 +10,7 @@ export default class Spinner extends Component {
     const {showSpinner, spinnerText} = this.props;
     return (
       <div className={showSpinner ? "spinner__container" : "spinner__container none"}>
-        <p className="noselect">{spinnerText}</p>
+        <p>{spinnerText}</p>
       </div>
     );
   }

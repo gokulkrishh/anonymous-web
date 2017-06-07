@@ -1,14 +1,16 @@
-import { h, Component } from 'preact';
-import {database} from 'firebase';
-import reactMixin from 'react-mixin';
+import { h, Component } from "preact";
+import {database} from "firebase";
+import reactMixin from "react-mixin";
 import reactFire from "reactfire";
+import timeago from 'timeago.js';
+import read from "./read.png";
 
 export default class Messages extends Component { 
   constructor(props) {
     super(props);
     this.state = {
       chats: []
-    }
+    };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -24,13 +26,15 @@ export default class Messages extends Component {
     const {chats} = this.state;
     const {userId} = this.props;
     const chatMessages = chats.map((chat, index) => {
+      console.log(chat.timestamp)
       return(
         <div key={index}>
           <p className={userId === chat.id ? "user" : "self"} key={index}>
             <span className="msg">
               {chat.message}
               <span className="timestamp">
-                {chat.timestamp}
+                {timeago().format(chat.timestamp)}
+                <img src={read} alt="read"/>
               </span>
             </span>
           </p>
