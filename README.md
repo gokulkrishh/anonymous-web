@@ -1,12 +1,12 @@
-# <img src="https://raw.githubusercontent.com/gokulkrishh/anonymous-web/preact/assets/icons/android-chrome-512x512.png" width="180px" />
+### <img src="https://raw.githubusercontent.com/gokulkrishh/anonymous-web/preact/assets/icons/android-chrome-512x512.png" width="180px" />
 
 # [Anonymous Chat](https://anonymouschat.in)
 
 *A PreactJS powered progressive web (chat) application using Firebase Realtime Database.*
 
-## [Live](https://anonymouschat.in)
+### [Live](https://anonymouschat.in)
 
-# Features
+## Features
 
  - Chat instantly with strangers (no login is required).
 
@@ -50,8 +50,6 @@ npm run start
 ````sh
 npm run build
 ````
-
-*Also above command will copy static assets and add it to service-worker.js*
 
 ### Deploy
 
