@@ -1,8 +1,10 @@
 # <img src="https://raw.githubusercontent.com/gokulkrishh/anonymous-web/preact/assets/icons/android-chrome-512x512.png" width="180px" />
 
-> *PreactJS powered progressive web application using Firebase Realtime Database.*
+# [Anonymous Chat](https://anonymouschat.in)
 
-### [Live](https://anonymouschat.in)
+*A PreactJS powered progressive web (chat) application using Firebase Realtime Database.*
+
+## [Live](https://anonymouschat.in)
 
 # Features
 
