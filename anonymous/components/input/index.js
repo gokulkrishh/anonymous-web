@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import {database} from 'firebase';
+import database from 'firebase/database';
 import autoBind from "react-autobind";
 import send from './send.png';
 

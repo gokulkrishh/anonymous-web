@@ -1,5 +1,5 @@
 import { h, Component } from "preact";
-import {database} from "firebase";
+import database from 'firebase/database';
 import reactMixin from "react-mixin";
 import reactFire from "reactfire";
 import timeago from 'timeago.js';

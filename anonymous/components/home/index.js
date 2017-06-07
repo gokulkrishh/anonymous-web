@@ -1,7 +1,7 @@
 import style from "./style";
 import { h, Component } from "preact";
 import autoBind from "react-autobind";
-import {database} from 'firebase';
+import database from 'firebase/database';
 import utility from "../../utility";
 import Header from "../header";
 import Spinner from "../spinner";

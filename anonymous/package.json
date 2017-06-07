@@ -1,5 +1,5 @@
 {
-  "name": "anonymous chat",
+  "name": "anonymous-chat",
   "version": "2.0.0",
   "description": "Chat with strangers randomly.",
   "main": "index.js",
