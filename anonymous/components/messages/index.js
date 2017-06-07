@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import firebase from "firebase";
+import {database} from 'firebase';
 import reactMixin from 'react-mixin';
 import reactFire from "reactfire";
 
@@ -13,7 +13,7 @@ export default class Messages extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.otherUserId && nextProps.chatURL) {
-      this.firebaseRef = firebase.database().ref(`chats/${nextProps.chatURL}/messages`);
+      this.firebaseRef = database().ref(`chats/${nextProps.chatURL}/messages`);
       if (typeof this.firebaseRefs["chats"] === "undefined") {
         this.bindAsArray(this.firebaseRef, "chats");
       }

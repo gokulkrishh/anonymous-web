@@ -1,7 +1,7 @@
 import style from "./style";
 import { h, Component } from "preact";
 import autoBind from "react-autobind";
-import firebase from "firebase";
+import {database} from 'firebase';
 import utility from "../../utility";
 import Header from "../header";
 import Spinner from "../spinner";
@@ -19,7 +19,7 @@ export default class Home extends Component {
       showIntroScreen: utility.showIntroScreen(),
       showSpinner: true
     };
-    this.firebaseDB = firebase.database();
+    this.firebaseDB = database();
     this.firebaseChatRef = this.firebaseDB.ref("chats");
     this.firebaseUserRef = null;
     this.firebaseDBTyping = null;

@@ -1,12 +1,12 @@
 import { h, Component } from 'preact';
-import firebase from 'firebase';
+import {database} from 'firebase';
 import autoBind from "react-autobind";
 import send from './send.png';
 
 export default class Input extends Component {
   constructor(props) {
     super(props);
-    this.firebaseDB = firebase.database();
+    this.firebaseDB = database();
     this.currentChat = null;
     this.timeoutRef = null;
     this.userInput = null;
