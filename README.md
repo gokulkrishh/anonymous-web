@@ -1,4 +1,4 @@
-# <img src="https://raw.githubusercontent.com/gokulkrishh/anonymous-web/preact/assets/icons/android-chrome-512x512.png" width="300px" />
+# <img src="https://raw.githubusercontent.com/gokulkrishh/anonymous-web/preact/assets/icons/android-chrome-512x512.png" width="180px" />
 
 > *PreactJS powered progressive web application using Firebase Realtime Database.*
 
