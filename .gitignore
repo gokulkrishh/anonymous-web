@@ -11,3 +11,4 @@ build
 npm-debug.log
 *.zip
 config.json
+dummy.html
