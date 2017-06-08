@@ -407,7 +407,7 @@ header {
   display: flex;
   flex-direction: row;
   margin: 25px auto;
-  width: 160px;
+  width: 120px;
   justify-content: space-around;
   user-select: none;
 }
@@ -423,4 +423,8 @@ header {
   height: 38px;
   margin-top: 3px;
   margin-left: 1px;
+}
+
+.intro__screen-footer p {
+  font-style: normal;
 }

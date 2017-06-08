@@ -41,6 +41,7 @@ export default class Home extends Component {
     this.firebaseConnection = this.firebaseDB.ref(".info/connected");
     this.firebaseConnection.on("value", (snap) => {
       if (snap.val() === true) {
+        console.log("Came ---->");
         if (this.currentChat) {
           this.currentChat.onDisconnect().remove();
         }
@@ -63,7 +64,7 @@ export default class Home extends Component {
 
     window.addEventListener("online", () => {
       this.setState({
-        headerStatus: "connecting...",
+        headerStatus: "connected",
         spinnerText: "Looking for user..."
       });
     });
