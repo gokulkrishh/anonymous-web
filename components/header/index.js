@@ -1,8 +1,8 @@
-import { h, Component } from 'preact';
-import style from './style';
-import logo from './logo.png';
-import outlineInfo from './outline.png';
-import closeBtn from './close.png';
+import { h, Component } from "preact";
+import style from "./style";
+import logo from "./logo.png";
+import outlineInfo from "./outline.png";
+import closeBtn from "./close.png";
 
 export default class Header extends Component {
 	static defaultProps = {

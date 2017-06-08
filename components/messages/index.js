@@ -1,8 +1,8 @@
 import { h, Component } from "preact";
-import database from 'firebase/database';
+import database from "firebase/database";
 import reactMixin from "react-mixin";
 import reactFire from "reactfire";
-import timeago from 'timeago.js';
+import timeago from "timeago.js";
 import read from "./read.png";
 
 export default class Messages extends Component { 

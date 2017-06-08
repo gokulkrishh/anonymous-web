@@ -1,9 +1,9 @@
-import { h, Component } from 'preact';
-import logo from '../header/logo.png';
-import close from './close.png';
-import facebook from './facebook.svg';
-import twitter from './twitter.svg';
-import github from './github.svg';
+import { h, Component } from "preact";
+import logo from "../header/logo.png";
+import close from "./close.png";
+import facebook from "./facebook.svg";
+import twitter from "./twitter.svg";
+import github from "./github.svg";
 
 
 export default class Intro extends Component { 
